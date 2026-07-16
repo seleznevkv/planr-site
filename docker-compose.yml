@@ -1,0 +1,15 @@
+version: '2.4'
+services:
+  # planr-site — Next.js в standalone-режиме (node-сервер на :80). Только UI:
+  # нет api/migrations и БД. Маршрутизация — через traefik по домену planr.cloud.
+  # Тег образа держи в синхроне с VER из runsite.sh.
+  ui:
+    image: registry.planr.cloud/site/planr-site-ui:26.7.16
+    mem_limit: 512m
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.planr-site-ui.rule=Host(`planr.cloud`)"
+      - "traefik.http.routers.planr-site-ui.entrypoints=websecure"
+      - "traefik.http.routers.planr-site-ui.tls.certresolver=myresolver"
+      - "traefik.http.services.planr-site-ui.loadbalancer.server.port=80"
+      - "traefik.http.routers.planr-site-ui.middlewares=traefik-compress"
