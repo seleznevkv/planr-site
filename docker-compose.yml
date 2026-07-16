@@ -1,22 +1,15 @@
 version: '2.4'
 services:
-  # planr-site — Next.js в standalone-режиме (node-сервер на :80). Только UI:
-  # нет api/migrations и БД. Маршрутизация — через traefik по домену info.planr.cloud
-  # (тот же адрес и сеть, что у старого статического сайта в проекте site).
-  # Тег образа держи в синхроне с VER из runsite.sh.
   ui:
     image: registry.planr.cloud/site/planr-site-ui:26.7.16
     mem_limit: 512m
-    # Traefik подключён к внешней сети site_default (см. traefik compose). Контейнер
-    # должен быть в ней же, иначе traefik не достучится до бэкенда → 404 + дефолтный
-    # (самоподписанный) сертификат вместо Let's Encrypt.
+    # Traefik подключён к внешней сети site_default 
     networks:
       - site_default
     labels:
       - "traefik.enable=true"
-      # У traefik много сетей — явно указываем, через какую идти в этот контейнер.
       - "traefik.docker.network=site_default"
-      - "traefik.http.routers.planr-site-ui.rule=Host(`info.planr.cloud`)"
+      - "traefik.http.routers.planr-site-ui.rule=Host(`planr.cloud`)"
       - "traefik.http.routers.planr-site-ui.entrypoints=websecure"
       - "traefik.http.routers.planr-site-ui.tls.certresolver=myresolver"
       - "traefik.http.services.planr-site-ui.loadbalancer.server.port=80"
