@@ -64,6 +64,18 @@ const themeInitScript = `
 })();
 `;
 
+// Yandex.Metrika counter (id 110934264) — loaded on every page via the root layout.
+const yandexMetrikaScript = `
+(function(m,e,t,r,i,k,a){
+    m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+})(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=110934264', 'ym');
+
+ym(110934264, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+`;
+
 const startPlan = pricingPlans.find((p) => p.id === "start")!;
 
 const organizationJsonLd = {
@@ -115,6 +127,7 @@ export default function RootLayout({
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <script dangerouslySetInnerHTML={{ __html: yandexMetrikaScript }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -129,6 +142,11 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col font-sans">
+        <noscript>
+          <div>
+            <img src="https://mc.yandex.ru/watch/110934264" style={{ position: "absolute", left: "-9999px" }} alt="" />
+          </div>
+        </noscript>
         <BackgroundScene />
         <Header />
         <main className="flex-1">{children}</main>

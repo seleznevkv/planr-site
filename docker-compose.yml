@@ -1,11 +1,24 @@
 version: '2.4'
 services:
+  # planr-site — Next.js в standalone-режиме (node-сервер на :80). Только UI +
+  # /api/contact (отправка письма по SMTP), без миграций и БД.
+  # Маршрутизация — через traefik по домену planr.cloud.
   ui:
     image: registry.planr.cloud/site/planr-site-ui:26.7.16
     mem_limit: 512m
-    # Traefik подключён к внешней сети site_default 
+    # Traefik подключён к внешней сети site_default
     networks:
       - site_default
+    environment:
+      # SMTP settings used by app/api/contact/route.ts to send the contact
+      # form's notification email. Fill in real values (or set them via a
+      # deploy-time secrets file) — the form fails closed if they're missing.
+      - SMTP_HOST=smtp.yandex.ru
+      - SMTP_PORT=465
+      - SMTP_SECURE=true
+      - SMTP_USER=office@planr.cloud
+      - SMTP_PASS=
+      - CONTACT_EMAIL_TO=office@planr.cloud
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=site_default"

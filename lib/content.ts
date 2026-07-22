@@ -377,8 +377,8 @@ export const featuresDetailed: FeatureDetail[] = [
       "Хранение проектной и корпоративной документации в одном месте",
       "Учёт входящей и исходящей корреспонденции по проекту",
     ],
-    image: "/screenshots/employees-list.png",
-    imageAlt: "Учёт сроков действия электронной подписи сотрудников в PlanR",
+    image: "/screenshots/order-signing.png",
+    imageAlt: "Подписание раздела проектной документации: разработал, проверил, нормоконтроль, ГИП, юр.лицо",
   },
   {
     slug: "portal",

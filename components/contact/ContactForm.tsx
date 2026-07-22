@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 import GlassCard from "@/components/ui/GlassCard";
 import Button from "@/components/ui/Button";
 import { IconCheck } from "@/components/icons";
@@ -10,13 +11,13 @@ const inputClass =
   "w-full rounded-2xl glass-soft px-4 py-3.5 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] outline-none focus:ring-2 focus:ring-[var(--color-brand-blue)]/60 transition-all";
 
 export default function ContactForm() {
-  const [sent, setSent] = useState(false);
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  // Same endpoint + hidden-field contract as the original site's mail.php:
   // project_name / admin_email / form_subject are stripped out server-side
-  // and everything else becomes a row in the notification email.
+  // by app/api/contact/route.ts and everything else becomes a row in the
+  // notification email.
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
@@ -25,29 +26,14 @@ export default function ContactForm() {
     const form = e.currentTarget;
 
     try {
-      const res = await fetch("/mail.php", { method: "POST", body: new FormData(form) });
+      const res = await fetch("/api/contact", { method: "POST", body: new FormData(form) });
       if (!res.ok) throw new Error("request failed");
-      setSent(true);
       form.reset();
+      router.push("/thank-you");
     } catch {
       setError(true);
-    } finally {
       setLoading(false);
     }
-  }
-
-  if (sent) {
-    return (
-      <GlassCard variant="strong" padding="lg" hover={false} className="text-center">
-        <span className="mx-auto w-14 h-14 rounded-full icon-chip flex items-center justify-center text-[var(--color-brand-blue)]">
-          <IconCheck className="w-7 h-7" />
-        </span>
-        <h3 className="mt-5 text-xl font-bold text-[var(--text-primary)]">Заявка отправлена</h3>
-        <p className="mt-2 text-sm text-[var(--text-secondary)]">
-          Мы свяжемся с вами в ближайшее рабочее время, чтобы обсудить демо PlanR.
-        </p>
-      </GlassCard>
-    );
   }
 
   return (
