@@ -296,7 +296,11 @@ export default function HomePage() {
           </Reveal>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-4">
             {businessMetrics.map((m, i) => (
-              <Reveal key={m.label} delay={(i % 6) * 0.06}>
+              <Reveal
+                key={m.label}
+                delay={(i % 6) * 0.06}
+                className={i === businessMetrics.length - 1 ? "sm:col-span-1 lg:col-span-2" : ""}
+              >
                 <GlassCard padding="sm" className="h-full">
                   <span className="w-9 h-9 rounded-xl icon-chip flex items-center justify-center text-[var(--color-brand-blue)]">
                     <m.icon className="w-4.5 h-4.5" />

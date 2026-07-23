@@ -89,12 +89,11 @@ export const keyQuestions = [
 ];
 
 export const businessMetrics = [
-  { icon: IconReports, label: "Выручка", value: "84 300 000 ₽", trend: "+12%", trendLabel: "к прошлому кварталу", positive: true },
-  { icon: IconTrendUp, label: "Прибыль", value: "4 650 000 ₽", trend: "+9%", trendLabel: "к прошлому кварталу", positive: true },
-  { icon: IconBudget, label: "Рентабельность проектов", value: "5,52%", trend: "+0,4 п.п.", trendLabel: "к прошлому кварталу", positive: true },
-  { icon: IconWallet, label: "Оплаты", value: "61 800 000 ₽", trend: "+14%", trendLabel: "к прошлому кварталу", positive: true },
-  { icon: IconClock, label: "Дебиторская задолженность", value: "88 808 177 ₽", trend: "-6%", trendLabel: "к прошлому кварталу", positive: true },
-  { icon: IconTrendUp, label: "Прогноз прибыли", value: "5 100 000 ₽", trend: "+10%", trendLabel: "прогноз", positive: true },
+  { icon: IconWallet, label: "Счета: долг", value: "88 808 177 ₽", trend: "-6%", trendLabel: "к прошлому кварталу", positive: true },
+  { icon: IconReports, label: "Финансы: выручка", value: "84 300 000 ₽", trend: "+12%", trendLabel: "к прошлому кварталу", positive: true },
+  { icon: IconPieChart, label: "Накладные расходы", value: "33,11%", trend: "0%", trendLabel: "к прошлому кварталу", positive: true },
+  { icon: IconTrendUp, label: "Рентабельность", value: "5,52%", trend: "+0,4 п.п.", trendLabel: "к прошлому кварталу", positive: true },
+  { icon: IconTeam, label: "Выработка", value: "1 110 000 ₽/чел.", trend: "+7%", trendLabel: "к прошлому кварталу", positive: true },
 ];
 
 export const roles = [
