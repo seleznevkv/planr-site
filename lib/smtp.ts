@@ -64,6 +64,13 @@ function encodeSubject(subject: string) {
   return `=?UTF-8?B?${Buffer.from(subject, "utf8").toString("base64")}?=`;
 }
 
+// The SMTP envelope (MAIL FROM / RCPT TO) takes a bare address, unlike the
+// From: header, which may be "Display Name <address>".
+function extractEmail(address: string): string {
+  const m = address.match(/<([^>]+)>/);
+  return m ? m[1] : address.trim();
+}
+
 export async function sendMail(opts: SendMailOptions): Promise<void> {
   const connectOnce = () =>
     new Promise<Socket | TLSSocket>((resolve, reject) => {
@@ -96,8 +103,8 @@ export async function sendMail(opts: SendMailOptions): Promise<void> {
     assertOk(await sendCommand(socket, Buffer.from(opts.user, "utf8").toString("base64")), "AUTH USER");
     assertOk(await sendCommand(socket, Buffer.from(opts.pass, "utf8").toString("base64")), "AUTH PASS");
 
-    assertOk(await sendCommand(socket, `MAIL FROM:<${opts.from}>`), "MAIL FROM");
-    assertOk(await sendCommand(socket, `RCPT TO:<${opts.to}>`), "RCPT TO");
+    assertOk(await sendCommand(socket, `MAIL FROM:<${extractEmail(opts.from)}>`), "MAIL FROM");
+    assertOk(await sendCommand(socket, `RCPT TO:<${extractEmail(opts.to)}>`), "RCPT TO");
     assertOk(await sendCommand(socket, "DATA"), "DATA");
 
     const headers = [
