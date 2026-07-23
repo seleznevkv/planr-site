@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Logo from "@/components/Logo";
 import Button from "@/components/ui/Button";
@@ -15,6 +15,8 @@ export default function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
+  const [pill, setPill] = useState<{ left: number; width: number } | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -25,6 +27,34 @@ export default function Header() {
 
   useEffect(() => {
     setMenuOpen(false);
+  }, [pathname]);
+
+  // Measure the active link's position within the nav so the highlight pill
+  // can animate purely as left/width (never top/bottom) — a viewport-rect-based
+  // layoutId animation picks up the sticky header's scroll-driven padding
+  // change as a spurious vertical jump when navigating mid-scroll.
+  useLayoutEffect(() => {
+    const activeItem = navItems.find((item) =>
+      item.href === "/" ? pathname === "/" : pathname.startsWith(item.href)
+    );
+    const activeEl = activeItem ? linkRefs.current[activeItem.href] : null;
+    if (activeEl) {
+      setPill({ left: activeEl.offsetLeft, width: activeEl.offsetWidth });
+    } else {
+      setPill(null);
+    }
+  }, [pathname]);
+
+  useEffect(() => {
+    function onResize() {
+      const activeItem = navItems.find((item) =>
+        item.href === "/" ? pathname === "/" : pathname.startsWith(item.href)
+      );
+      const activeEl = activeItem ? linkRefs.current[activeItem.href] : null;
+      if (activeEl) setPill({ left: activeEl.offsetLeft, width: activeEl.offsetWidth });
+    }
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
   }, [pathname]);
 
   useEffect(() => {
@@ -49,13 +79,24 @@ export default function Header() {
           <VersionBadge />
         </div>
 
-        <nav className="hidden lg:flex items-center gap-1 mx-auto">
+        <nav className="hidden lg:flex items-center gap-1 mx-auto relative">
+          {pill && (
+            <motion.span
+              initial={false}
+              animate={{ left: pill.left, width: pill.width }}
+              transition={{ type: "spring", duration: 0.5, bounce: 0.2 }}
+              className="absolute inset-y-0 rounded-full glass -z-10"
+            />
+          )}
           {navItems.map((item) => {
             const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
             return (
               <Link
                 key={item.href}
                 href={item.href}
+                ref={(el) => {
+                  linkRefs.current[item.href] = el;
+                }}
                 className={cn(
                   "relative px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200",
                   active
@@ -63,13 +104,6 @@ export default function Header() {
                     : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
                 )}
               >
-                {active && (
-                  <motion.span
-                    layoutId="nav-active"
-                    className="absolute inset-0 rounded-full glass -z-10"
-                    transition={{ type: "spring", duration: 0.5, bounce: 0.2 }}
-                  />
-                )}
                 {item.label}
               </Link>
             );

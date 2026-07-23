@@ -89,12 +89,12 @@ export const keyQuestions = [
 ];
 
 export const businessMetrics = [
-  { icon: IconReports, label: "Доход", value: "125 800 000 ₽", trend: "+18%", trendLabel: "с прошлого месяца", positive: true },
-  { icon: IconTrendUp, label: "Прибыль", value: "32 450 000 ₽", trend: "+16%", trendLabel: "с прошлого месяца", positive: true },
-  { icon: IconBudget, label: "Рентабельность проектов", value: "18,7%", trend: "+3,1 п.п.", trendLabel: "с прошлого месяца", positive: true },
-  { icon: IconWallet, label: "Оплаты", value: "37 900 000 ₽", trend: "+20%", trendLabel: "с прошлого месяца", positive: true },
-  { icon: IconClock, label: "Дебиторская задолженность", value: "16 300 000 ₽", trend: "-8%", trendLabel: "с прошлого месяца", positive: true },
-  { icon: IconTrendUp, label: "Прогноз прибыли", value: "52 100 000 ₽", trend: "+10%", trendLabel: "прогноз", positive: true },
+  { icon: IconReports, label: "Выручка", value: "84 300 000 ₽", trend: "+12%", trendLabel: "к прошлому кварталу", positive: true },
+  { icon: IconTrendUp, label: "Прибыль", value: "4 650 000 ₽", trend: "+9%", trendLabel: "к прошлому кварталу", positive: true },
+  { icon: IconBudget, label: "Рентабельность проектов", value: "5,52%", trend: "+0,4 п.п.", trendLabel: "к прошлому кварталу", positive: true },
+  { icon: IconWallet, label: "Оплаты", value: "61 800 000 ₽", trend: "+14%", trendLabel: "к прошлому кварталу", positive: true },
+  { icon: IconClock, label: "Дебиторская задолженность", value: "88 808 177 ₽", trend: "-6%", trendLabel: "к прошлому кварталу", positive: true },
+  { icon: IconTrendUp, label: "Прогноз прибыли", value: "5 100 000 ₽", trend: "+10%", trendLabel: "прогноз", positive: true },
 ];
 
 export const roles = [

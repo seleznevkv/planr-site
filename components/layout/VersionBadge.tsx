@@ -44,9 +44,23 @@ export default function VersionBadge() {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-haspopup="dialog"
-        className="text-[10px] leading-none font-medium text-[var(--text-tertiary)] hover:text-[var(--color-brand-blue)] transition-colors tracking-wide px-1 py-0.5 -ml-1 rounded"
+        aria-label="История версий"
+        className="inline-flex items-center gap-1 text-[10px] leading-none font-semibold text-[var(--text-tertiary)] hover:text-[var(--color-brand-blue)] transition-colors tracking-wide pl-2 pr-1.5 py-1 rounded-full glass-soft"
       >
         v{currentVersion}
+        <svg
+          width="10"
+          height="10"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className={cn("transition-transform duration-200", open && "rotate-180")}
+        >
+          <path d="m6 9 6 6 6-6" />
+        </svg>
       </button>
 
       <AnimatePresence>
