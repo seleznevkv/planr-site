@@ -294,30 +294,34 @@ export default function HomePage() {
               />
             </GlassCard>
           </Reveal>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-4">
-            {businessMetrics.map((m, i) => (
-              <Reveal
-                key={m.label}
-                delay={(i % 6) * 0.06}
-                className={i === businessMetrics.length - 1 ? "sm:col-span-1 lg:col-span-2" : ""}
-              >
-                <GlassCard padding="sm" className="h-full">
-                  <span className="w-9 h-9 rounded-xl icon-chip flex items-center justify-center text-[var(--color-brand-blue)]">
-                    <m.icon className="w-4.5 h-4.5" />
+          <Reveal delay={0.1}>
+            <GlassCard variant="strong" padding="none" hover={false}>
+              {businessMetrics.map((m) => (
+                <div
+                  key={m.label}
+                  className="flex items-center justify-between gap-4 px-5 py-4 border-b border-[var(--glass-border-soft)] last:border-0"
+                >
+                  <span className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="shrink-0 text-[var(--text-tertiary)]"
+                    >
+                      <path d="m6 9 6 6 6-6" />
+                    </svg>
+                    {m.label}
                   </span>
-                  <p className="mt-3 text-xs text-[var(--text-tertiary)] leading-snug">{m.label}</p>
-                  <p className="mt-1 text-lg font-extrabold text-[var(--text-primary)] leading-tight">{m.value}</p>
-                  <p
-                    className={`mt-1 text-[11px] font-medium ${
-                      m.positive ? "text-[var(--color-brand-blue)]" : "text-[var(--color-brand-orange)]"
-                    }`}
-                  >
-                    {m.trend} <span className="text-[var(--text-tertiary)] font-normal">{m.trendLabel}</span>
-                  </p>
-                </GlassCard>
-              </Reveal>
-            ))}
-          </div>
+                  <span className="text-base font-bold text-[var(--text-primary)]">{m.value}</span>
+                </div>
+              ))}
+            </GlassCard>
+          </Reveal>
         </div>
       </Section>
 

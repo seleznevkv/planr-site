@@ -89,11 +89,11 @@ export const keyQuestions = [
 ];
 
 export const businessMetrics = [
-  { icon: IconWallet, label: "Счета: долг", value: "88 808 177 ₽", trend: "-6%", trendLabel: "к прошлому кварталу", positive: true },
-  { icon: IconReports, label: "Финансы: выручка", value: "84 300 000 ₽", trend: "+12%", trendLabel: "к прошлому кварталу", positive: true },
-  { icon: IconPieChart, label: "Накладные расходы", value: "33,11%", trend: "0%", trendLabel: "к прошлому кварталу", positive: true },
-  { icon: IconTrendUp, label: "Рентабельность", value: "5,52%", trend: "+0,4 п.п.", trendLabel: "к прошлому кварталу", positive: true },
-  { icon: IconTeam, label: "Выработка", value: "1 110 000 ₽/чел.", trend: "+7%", trendLabel: "к прошлому кварталу", positive: true },
+  { label: "Счета: долг", value: "88 808 177 ₽" },
+  { label: "Финансы: выручка", value: "84 300 000 ₽" },
+  { label: "Накладные расходы", value: "33,11%" },
+  { label: "Рентабельность", value: "5,52%" },
+  { label: "Выработка", value: "1 110 000 ₽/чел." },
 ];
 
 export const roles = [
