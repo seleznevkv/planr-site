@@ -35,7 +35,7 @@ export default function Header() {
   // change as a spurious vertical jump when navigating mid-scroll.
   useLayoutEffect(() => {
     const activeItem = navItems.find((item) =>
-      item.href === "/" ? pathname === "/" : pathname.startsWith(item.href)
+      item.external ? false : item.href === "/" ? pathname === "/" : pathname.startsWith(item.href)
     );
     const activeEl = activeItem ? linkRefs.current[activeItem.href] : null;
     if (activeEl) {
@@ -89,11 +89,13 @@ export default function Header() {
             />
           )}
           {navItems.map((item) => {
-            const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+            const active = !item.external && (item.href === "/" ? pathname === "/" : pathname.startsWith(item.href));
             return (
               <Link
                 key={item.href}
                 href={item.href}
+                target={item.external ? "_blank" : undefined}
+                rel={item.external ? "noopener noreferrer" : undefined}
                 ref={(el) => {
                   linkRefs.current[item.href] = el;
                 }}
@@ -150,11 +152,13 @@ export default function Header() {
             <div className="container-px max-w-[1280px] mx-auto pt-4 pb-2">
               <div className="glass rounded-3xl p-4 flex flex-col gap-1">
                 {navItems.map((item) => {
-                  const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+                  const active = !item.external && (item.href === "/" ? pathname === "/" : pathname.startsWith(item.href));
                   return (
                     <Link
                       key={item.href}
                       href={item.href}
+                      target={item.external ? "_blank" : undefined}
+                      rel={item.external ? "noopener noreferrer" : undefined}
                       className={cn(
                         "px-4 py-3 rounded-2xl text-sm font-medium transition-colors",
                         active

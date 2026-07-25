@@ -31,11 +31,21 @@ export default function Footer() {
             <ul className="flex flex-wrap gap-x-3 gap-y-1.5 sm:flex-col sm:gap-y-3">
               {navItems.map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="text-xs sm:text-sm text-[var(--text-secondary)] hover:text-[var(--color-brand-blue)] transition-colors">
+                  <Link
+                    href={item.href}
+                    target={item.external ? "_blank" : undefined}
+                    rel={item.external ? "noopener noreferrer" : undefined}
+                    className="text-xs sm:text-sm text-[var(--text-secondary)] hover:text-[var(--color-brand-blue)] transition-colors"
+                  >
                     {item.label}
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link href="/changelog" className="text-xs sm:text-sm text-[var(--text-secondary)] hover:text-[var(--color-brand-blue)] transition-colors">
+                  История версий
+                </Link>
+              </li>
             </ul>
           </div>
 

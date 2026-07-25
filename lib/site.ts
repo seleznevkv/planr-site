@@ -21,6 +21,7 @@ export const legalEntity = {
 export type NavItem = {
   label: string;
   href: string;
+  external?: boolean;
 };
 
 export const navItems: NavItem[] = [
@@ -29,5 +30,6 @@ export const navItems: NavItem[] = [
   { label: "Тарифы", href: "/pricing" },
   { label: "Технологии", href: "/technologies" },
   { label: "О нас", href: "/about" },
+  { label: "Документация", href: "https://docs.rostpro.tech/", external: true },
   { label: "Контакты", href: "/contact" },
 ];
