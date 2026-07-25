@@ -31,7 +31,7 @@ export default async function Image() {
             }}
           />
           <div style={{ display: "flex", fontSize: 42, fontWeight: 800, color: "#ffffff", letterSpacing: -1 }}>
-            PlanR
+            РостПро
           </div>
         </div>
         <div

@@ -40,12 +40,12 @@ export default function ContactForm() {
     <GlassCard variant="strong" padding="lg" hover={false}>
       <h3 className="text-xl font-bold text-[var(--text-primary)]">Оставьте заявку</h3>
       <p className="mt-2 text-sm text-[var(--text-secondary)]">
-        Расскажем о PlanR и покажем платформу на демо-звонке за 20 минут.
+        Расскажем о РостПро и покажем платформу на демо-звонке за 20 минут.
       </p>
       <form onSubmit={handleSubmit} className="mt-6 space-y-4">
         <input type="hidden" name="project_name" value={siteConfig.name} />
         <input type="hidden" name="admin_email" value={siteConfig.email} />
-        <input type="hidden" name="form_subject" value="Новая заявка с сайта PlanR" />
+        <input type="hidden" name="form_subject" value="Новая заявка с сайта РостПро" />
 
         <input required name="Имя" type="text" placeholder="Введите имя" className={inputClass} />
         <input required name="Телефон" type="tel" placeholder="Введите телефон" className={inputClass} />

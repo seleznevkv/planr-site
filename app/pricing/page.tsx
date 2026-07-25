@@ -10,9 +10,9 @@ import { pricingFaq, pricingTrialDays, pricingIncludedFeatures, pricingJumpNote,
 import { IconCheck } from "@/components/icons";
 
 export const metadata: Metadata = {
-  title: "Тарифы PlanR — прозрачные цены для проектного бизнеса",
+  title: "Тарифы РостПро — прозрачные цены для проектного бизнеса",
   description:
-    "Тарифы PlanR отличаются только количеством пользователей — полный функционал платформы доступен на каждом плане. Фиксированная стоимость без скидок.",
+    "Тарифы РостПро отличаются только количеством пользователей — полный функционал платформы доступен на каждом плане. Фиксированная стоимость без скидок.",
   alternates: { canonical: "/pricing" },
 };
 
@@ -23,7 +23,7 @@ export default function PricingPage() {
         <SectionHeading
           eyebrow="Тарифы"
           title="Прозрачные цены без скрытых платежей"
-          description="Тарифы отличаются только количеством пользователей — полный функционал PlanR доступен на каждом плане."
+          description="Тарифы отличаются только количеством пользователей — полный функционал РостПро доступен на каждом плане."
         />
         <Reveal delay={0.1}>
           <div className="mt-10 flex justify-center">

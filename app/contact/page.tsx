@@ -8,9 +8,9 @@ import { siteConfig } from "@/lib/site";
 import { IconMail, IconPhone } from "@/components/icons";
 
 export const metadata: Metadata = {
-  title: "Контакты PlanR — запишитесь на демонстрацию",
+  title: "Контакты РостПро — запишитесь на демонстрацию",
   description:
-    "Свяжитесь с командой PlanR: оставьте заявку на демо, напишите на почту или позвоните — расскажем, как платформа поможет вашим проектам.",
+    "Свяжитесь с командой РостПро: оставьте заявку на демо, напишите на почту или позвоните — расскажем, как платформа поможет вашим проектам.",
   alternates: { canonical: "/contact" },
 };
 
@@ -24,7 +24,7 @@ export default function ContactPage() {
     <Section size="lg" className="pt-8 sm:pt-12">
       <SectionHeading
         eyebrow="Контакты"
-        title="Расскажем о PlanR на демо-звонке за 20 минут"
+        title="Расскажем о РостПро на демо-звонке за 20 минут"
         description="Оставьте заявку — покажем платформу на примере ваших проектов и ответим на вопросы о внедрении."
       />
 

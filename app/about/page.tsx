@@ -10,9 +10,9 @@ import { legalEntity } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "О компании PlanR — миссия и история продукта",
+  title: "О компании РостПро — миссия и история продукта",
   description:
-    "Узнайте о миссии, ценностях и истории развития платформы PlanR для управления проектами, ресурсами и финансами.",
+    "Узнайте о миссии, ценностях и истории развития платформы РостПро для управления проектами, ресурсами и финансами.",
   alternates: { canonical: "/about" },
 };
 
@@ -29,7 +29,7 @@ export default function AboutPage() {
               Порядок в проектах — наша единственная задача
             </h1>
             <p className="mt-6 text-lg text-[var(--text-secondary)] leading-relaxed">
-              PlanR создан для руководителей, которые хотят видеть реальную картину бизнеса —
+              РостПро создан для руководителей, которые хотят видеть реальную картину бизнеса —
               сроки, ресурсы и деньги в одном окне, без разрозненных таблиц, созвонов «для
               галочки» и отчётов, которые устаревают быстрее, чем доходят до стола.
             </p>
@@ -39,7 +39,7 @@ export default function AboutPage() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/illustrations/demo-power.svg"
-                alt="Иллюстрация: работа над проектами в PlanR"
+                alt="Иллюстрация: работа над проектами в РостПро"
                 className="w-full h-auto rounded-2xl"
               />
               <p className="mt-6 text-5xl font-extrabold text-gradient">Всё под контролем</p>
@@ -66,7 +66,7 @@ export default function AboutPage() {
         <Reveal>
           <GlassCard variant="soft" hover={false} className="max-w-2xl mx-auto text-center">
             <p className="text-base sm:text-lg text-[var(--text-primary)] font-medium leading-relaxed">
-              Узнать подробнее о развитии функционала PlanR можно по ссылке «История версий» —
+              Узнать подробнее о развитии функционала РостПро можно по ссылке «История версий» —
               нажмите на номер версии рядом с логотипом вверху страницы.
             </p>
           </GlassCard>
@@ -91,7 +91,7 @@ export default function AboutPage() {
         <SectionHeading
           eyebrow="Отрасли"
           title="Специализация на проектном бизнесе"
-          description="PlanR создан для компаний, где основной актив — время и экспертиза специалистов."
+          description="РостПро создан для компаний, где основной актив — время и экспертиза специалистов."
           align="left"
         />
         <div className="mt-10">

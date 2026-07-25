@@ -8,7 +8,7 @@ import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Спасибо за заявку",
-  description: "Заявка на демонстрацию PlanR отправлена — мы свяжемся с вами в ближайшее рабочее время.",
+  description: "Заявка на демонстрацию РостПро отправлена — мы свяжемся с вами в ближайшее рабочее время.",
   alternates: { canonical: "/thank-you" },
   robots: { index: false, follow: true },
 };
@@ -26,7 +26,7 @@ export default function ThankYouPage() {
           </h1>
           <p className="mt-3 text-sm text-[var(--text-secondary)] leading-relaxed">
             Заявка отправлена. Мы свяжемся с вами в ближайшее рабочее время (Пн–Пт, 9:00–18:00 МСК), чтобы
-            обсудить демонстрацию PlanR.
+            обсудить демонстрацию РостПро.
           </p>
           <p className="mt-2 text-xs text-[var(--text-tertiary)]">
             Если вопрос срочный — напишите на{" "}

@@ -71,7 +71,7 @@ export default function Footer() {
         </GlassCard>
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-2 mt-6 sm:mt-8 text-xs text-[var(--text-tertiary)] text-center">
-          <p>© {new Date().getFullYear()} PlanR. Все права защищены.</p>
+          <p>© {new Date().getFullYear()} РостПро. Все права защищены.</p>
           <p>Сделано для проектного бизнеса, который ценит своё время.</p>
         </div>
       </div>

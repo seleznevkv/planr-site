@@ -10,9 +10,9 @@ import { IconCheck, IconArrowRight } from "@/components/icons";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Как PlanR ведёт проект — от постановки задачи до прибыли по этапу",
+  title: "Как РостПро ведёт проект — от постановки задачи до прибыли по этапу",
   description:
-    "Реальный интерфейс и сценарии PlanR для каждой роли в команде: задачи, тайм-трекинг, бюджет проекта, ЭЦП, клиентский портал, премиальный фонд и отчёты.",
+    "Реальный интерфейс и сценарии РостПро для каждой роли в команде: задачи, тайм-трекинг, бюджет проекта, ЭЦП, клиентский портал, премиальный фонд и отчёты.",
   alternates: { canonical: "/features" },
 };
 
@@ -24,7 +24,7 @@ export default function FeaturesPage() {
       <Section size="lg" className="pt-8 sm:pt-12">
         <SectionHeading
           eyebrow="Возможности"
-          title="Как PlanR ведёт проект: от постановки задачи до прибыли по этапу"
+          title="Как РостПро ведёт проект: от постановки задачи до прибыли по этапу"
           description="Ниже — реальный интерфейс и сценарии для каждой роли в команде."
         />
         <Reveal delay={0.1}>
@@ -78,7 +78,7 @@ export default function FeaturesPage() {
                             <p className="mt-1.5 text-sm text-[var(--text-secondary)] leading-relaxed">{f.pain}</p>
                           </GlassCard>
                           <GlassCard variant="soft" padding="sm" hover={false}>
-                            <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-brand-blue)]">Решение PlanR</p>
+                            <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-brand-blue)]">Решение РостПро</p>
                             <p className="mt-1.5 text-sm text-[var(--text-secondary)] leading-relaxed">{f.solution}</p>
                           </GlassCard>
                         </div>
@@ -143,7 +143,7 @@ export default function FeaturesPage() {
               Хотите увидеть эти функции на своих проектах?
             </h2>
             <p className="mt-3 text-[var(--text-secondary)] max-w-xl mx-auto">
-              Покажем PlanR на демо-звонке за 20 минут и настроим первый проект вместе с вами.
+              Покажем РостПро на демо-звонке за 20 минут и настроим первый проект вместе с вами.
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
               <Button href="/contact" size="lg">Записаться на демо</Button>

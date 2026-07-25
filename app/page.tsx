@@ -24,9 +24,9 @@ import { IconArrowRight, IconCheck, IconX, IconAndroid, IconApple, IconShield } 
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "PlanR — контролируйте прибыльность каждого проекта",
+  title: "РостПро — контролируйте прибыльность каждого проекта",
   description:
-    "PlanR автоматически связывает задачи, табели учёта времени, подрядчиков и финансовые показатели проекта, показывая прибыльность каждого этапа в режиме реального времени.",
+    "РостПро автоматически связывает задачи, табели учёта времени, подрядчиков и финансовые показатели проекта, показывая прибыльность каждого этапа в режиме реального времени.",
   alternates: { canonical: "/" },
 };
 
@@ -57,7 +57,7 @@ export default function HomePage() {
             </Reveal>
             <Reveal delay={0.16}>
               <p className="mt-6 text-lg text-[var(--text-secondary)] leading-relaxed max-w-xl">
-                PlanR связывает задачи, табели, подрядчиков и деньги: вы видите маржу каждого
+                РостПро связывает задачи, табели, подрядчиков и деньги: вы видите маржу каждого
                 проекта и этапа в реальном времени — без сведения Excel-таблиц по пятницам.
                 Внедрение — от нескольких дней до нескольких недель в зависимости от команды,
                 60 дней для тестов.
@@ -75,7 +75,7 @@ export default function HomePage() {
           <Reveal delay={0.2} y={24} className="min-w-0 lg:-mt-6">
             <ScreenshotFrame
               src="/screenshots/dashboard.png"
-              alt="Дашборд организации в PlanR: статусы проектов, загруженность ГИПов, финансовый график"
+              alt="Дашборд организации в РостПро: статусы проектов, загруженность ГИПов, финансовый график"
               priority
             />
             <div className="mt-6 flex flex-wrap items-center justify-center lg:justify-end gap-2.5">
@@ -172,7 +172,7 @@ export default function HomePage() {
         <SectionHeading
           eyebrow="Возможности"
           title="Всё, что нужно проектной компании — без сторонних сервисов"
-          description="Не только задачи и время: PlanR закрывает финансовый контроль, работу с подрядчиками и документооборот целиком."
+          description="Не только задачи и время: РостПро закрывает финансовый контроль, работу с подрядчиками и документооборот целиком."
           align="left"
         />
         <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -197,7 +197,7 @@ export default function HomePage() {
 
       {/* Comparison table */}
       <Section size="sm">
-        <SectionHeading eyebrow="Сравнение" title="Чем PlanR отличается от привычных инструментов" align="left" />
+        <SectionHeading eyebrow="Сравнение" title="Чем РостПро отличается от привычных инструментов" align="left" />
         <Reveal delay={0.1}>
           <div className="mt-10 overflow-x-auto">
             <GlassCard hover={false} padding="none" className="min-w-[560px] overflow-hidden">
@@ -289,7 +289,7 @@ export default function HomePage() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/illustrations/power-3.svg"
-                alt="Аналитика по срокам, финансированию и загрузке команды в PlanR"
+                alt="Аналитика по срокам, финансированию и загрузке команды в РостПро"
                 className="w-full h-auto"
               />
             </GlassCard>

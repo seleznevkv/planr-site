@@ -4,7 +4,7 @@ import GlassCard from "@/components/ui/GlassCard";
 
 export const metadata: Metadata = {
   title: "Публичная оферта",
-  description: "Публичная оферта на предоставление доступа к платформе PlanR.",
+  description: "Публичная оферта на предоставление доступа к платформе РостПро.",
   alternates: { canonical: "/offer" },
 };
 
@@ -17,7 +17,7 @@ export default function OfferPage() {
       <GlassCard hover={false} className="mt-8 max-w-3xl">
         <div className="space-y-4 text-sm text-[var(--text-secondary)] leading-relaxed">
           <p>
-            Настоящий документ является публичной офертой PlanR на предоставление доступа к
+            Настоящий документ является публичной офертой РостПро на предоставление доступа к
             программному обеспечению по модели подписки (SaaS) в соответствии со статьёй 437
             Гражданского кодекса Российской Федерации.
           </p>
@@ -31,8 +31,8 @@ export default function OfferPage() {
           </p>
           <p>
             Полный текст оферты предоставляется по запросу на {" "}
-            <a href="mailto:office@planr.cloud" className="text-[var(--color-brand-blue)] font-medium">
-              office@planr.cloud
+            <a href="mailto:office@rostpro.com" className="text-[var(--color-brand-blue)] font-medium">
+              office@rostpro.com
             </a>
             .
           </p>

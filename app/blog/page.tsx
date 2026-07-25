@@ -8,7 +8,7 @@ import { blogPosts } from "@/lib/content";
 import { IconArrowRight } from "@/components/icons";
 
 export const metadata: Metadata = {
-  title: "Блог PlanR — статьи об управлении проектами и финансах",
+  title: "Блог РостПро — статьи об управлении проектами и финансах",
   description:
     "Практические материалы о планировании, бюджете проекта, координации подрядчиков и портфельной аналитике для руководителей проектного бизнеса.",
   alternates: { canonical: "/blog" },

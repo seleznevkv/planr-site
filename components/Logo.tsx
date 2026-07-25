@@ -1,8 +1,8 @@
 import { cn } from "@/lib/utils";
 
 /**
- * Brand mark adapted from the original PlanR site's icon (concentric arcs +
- * loop), reused here at a cropped viewBox with the two brand accent colors.
+ * Brand mark: concentric arcs + loop icon, reused here at a cropped viewBox
+ * with the two brand accent colors, paired with the РостПро wordmark.
  */
 export default function Logo({
   className,
@@ -31,7 +31,7 @@ export default function Logo({
       </svg>
       {showWordmark && (
         <span className="text-xl font-extrabold tracking-tight text-[var(--text-primary)]">
-          Plan<span className="text-[var(--color-brand-blue)]">R</span>
+          <span className="text-[var(--color-brand-blue)]">Р</span>ост<span className="text-[var(--color-brand-blue)]">П</span>ро
         </span>
       )}
     </span>

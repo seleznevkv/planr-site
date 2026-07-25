@@ -63,7 +63,7 @@ export default function DashboardMockup() {
             <span className="w-2.5 h-2.5 rounded-full bg-[var(--color-brand-amber)]/70" />
             <span className="w-2.5 h-2.5 rounded-full bg-[var(--color-brand-blue)]/70" />
             <span className="ml-3 text-xs font-medium text-[var(--text-tertiary)] truncate">
-              PlanR · Дашборд
+              РостПро · Дашборд
             </span>
           </div>
 
