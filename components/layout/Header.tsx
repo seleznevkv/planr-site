@@ -28,7 +28,26 @@ export default function Header() {
   const [mobileTechOpen, setMobileTechOpen] = useState(false);
   const linkRefs = useRef<Record<string, HTMLElement | null>>({});
   const techRef = useRef<HTMLDivElement>(null);
+  const navRef = useRef<HTMLElement>(null);
   const [pill, setPill] = useState<{ left: number; width: number } | null>(null);
+
+  // Position relative to the nav container via getBoundingClientRect rather
+  // than offsetLeft/offsetWidth — the Технологии trigger sits inside its own
+  // `position: relative` wrapper (needed to anchor its dropdown), which would
+  // otherwise become the offsetParent and make offsetLeft measure from that
+  // wrapper instead of from the nav, throwing the pill off to one side.
+  function measurePill() {
+    const activeItem = navItems.find((item) => isItemActive(item, pathname));
+    const activeEl = activeItem ? linkRefs.current[activeItem.href] : null;
+    const navEl = navRef.current;
+    if (activeEl && navEl) {
+      const navRect = navEl.getBoundingClientRect();
+      const elRect = activeEl.getBoundingClientRect();
+      setPill({ left: elRect.left - navRect.left, width: elRect.width });
+    } else {
+      setPill(null);
+    }
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -68,23 +87,14 @@ export default function Header() {
   // layoutId animation picks up the sticky header's scroll-driven padding
   // change as a spurious vertical jump when navigating mid-scroll.
   useLayoutEffect(() => {
-    const activeItem = navItems.find((item) => isItemActive(item, pathname));
-    const activeEl = activeItem ? linkRefs.current[activeItem.href] : null;
-    if (activeEl) {
-      setPill({ left: activeEl.offsetLeft, width: activeEl.offsetWidth });
-    } else {
-      setPill(null);
-    }
+    measurePill();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   useEffect(() => {
-    function onResize() {
-      const activeItem = navItems.find((item) => isItemActive(item, pathname));
-      const activeEl = activeItem ? linkRefs.current[activeItem.href] : null;
-      if (activeEl) setPill({ left: activeEl.offsetLeft, width: activeEl.offsetWidth });
-    }
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+    window.addEventListener("resize", measurePill);
+    return () => window.removeEventListener("resize", measurePill);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   useEffect(() => {
@@ -114,7 +124,7 @@ export default function Header() {
           </div>
         </div>
 
-        <nav className="hidden lg:flex items-center gap-1 mx-auto relative">
+        <nav ref={navRef} className="hidden lg:flex items-center gap-1 mx-auto relative">
           {pill && (
             <motion.span
               initial={false}
@@ -250,7 +260,7 @@ export default function Header() {
             className="lg:hidden overflow-hidden"
           >
             <div className="container-px max-w-[1280px] mx-auto pt-4 pb-2">
-              <div className="glass rounded-3xl p-4 flex flex-col gap-1">
+              <div className="glass-opaque rounded-3xl p-4 flex flex-col gap-1">
                 {navItems.map((item) => {
                   const active = isItemActive(item, pathname);
 
