@@ -18,18 +18,32 @@ export const legalEntity = {
   ogrn: "1213600001020",
 };
 
+export type NavChild = {
+  label: string;
+  href: string;
+  external?: boolean;
+};
+
 export type NavItem = {
   label: string;
   href: string;
   external?: boolean;
+  children?: NavChild[];
 };
 
 export const navItems: NavItem[] = [
   { label: "Главная", href: "/" },
   { label: "Возможности", href: "/features" },
   { label: "Тарифы", href: "/pricing" },
-  { label: "Технологии", href: "/technologies" },
+  {
+    label: "Технологии",
+    href: "/technologies",
+    children: [
+      { label: "Технологии", href: "/technologies" },
+      { label: "Документация", href: "https://docs.rostpro.tech/", external: true },
+      { label: "История версий", href: "/changelog" },
+    ],
+  },
   { label: "О нас", href: "/about" },
-  { label: "Документация", href: "https://docs.rostpro.tech/", external: true },
   { label: "Контакты", href: "/contact" },
 ];
