@@ -74,7 +74,7 @@ export default function HomePage() {
 
           <Reveal delay={0.2} y={24} className="min-w-0 lg:-mt-6">
             <ScreenshotFrame
-              src="/screenshots/dashboard.png"
+              src="/screenshots/dashboard-v2.png"
               alt="Дашборд организации в РостПро: статусы проектов, загруженность ГИПов, финансовый график"
               priority
             />

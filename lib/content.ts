@@ -296,7 +296,7 @@ export const featuresDetailed: FeatureDetail[] = [
       "Автоматический пересчёт сроков при сдвиге этапа",
       "Персональные списки задач для каждого сотрудника",
     ],
-    image: "/screenshots/order-questions.png",
+    image: "/screenshots/order-questions-v2.png",
     imageAlt: "Список задач по проектам в РостПро со статусами и сроками",
   },
   {
@@ -312,7 +312,7 @@ export const featuresDetailed: FeatureDetail[] = [
       "Автоматическое формирование табеля для бухгалтерии",
       "Аналитика загрузки сотрудников по проектам",
     ],
-    image: "/screenshots/employees-timesheet.png",
+    image: "/screenshots/employees-timesheet-v2.png",
     imageAlt: "Табель учёта рабочего времени сотрудников по отделам в РостПро",
   },
   {
@@ -328,7 +328,7 @@ export const featuresDetailed: FeatureDetail[] = [
       "Автоматический расчёт прибыльности в режиме реального времени",
       "Импорт платежей из клиент-банков без ручного ввода",
     ],
-    image: "/screenshots/order-finance.png",
+    image: "/screenshots/order-finance-v2.png",
     imageAlt: "Финансирование этапов проекта: план и факт платежей в РостПро",
   },
   {
@@ -344,7 +344,7 @@ export const featuresDetailed: FeatureDetail[] = [
       "Учёт субподрядчиков и внешних исполнителей",
       "Разграничение доступа по ролям и зонам ответственности",
     ],
-    image: "/screenshots/agents-list.png",
+    image: "/screenshots/agents-list-v2.png",
     imageAlt: "Реестр подрядчиков, заказчиков и поставщиков в РостПро",
   },
   {
@@ -360,7 +360,7 @@ export const featuresDetailed: FeatureDetail[] = [
       "Срезы по срокам, бюджету, подрядчикам и команде",
       "Экспорт отчётов для инвесторов и партнёров",
     ],
-    image: "/screenshots/dashboard.png",
+    image: "/screenshots/dashboard-v2.png",
     imageAlt: "Дашборд организации в РостПро: статусы, финансы, загруженность ГИПов",
   },
   {
@@ -376,7 +376,7 @@ export const featuresDetailed: FeatureDetail[] = [
       "Хранение проектной и корпоративной документации в одном месте",
       "Учёт входящей и исходящей корреспонденции по проекту",
     ],
-    image: "/screenshots/order-signing.png",
+    image: "/screenshots/order-signing-v2.png",
     imageAlt: "Подписание раздела проектной документации: разработал, проверил, нормоконтроль, ГИП, юр.лицо",
   },
   {
@@ -392,7 +392,7 @@ export const featuresDetailed: FeatureDetail[] = [
       "Учёт подтверждений изменений с основанием и датой",
       "Доступ заказчика к файлам результата без лишней переписки",
     ],
-    image: "/screenshots/order-confirms.png",
+    image: "/screenshots/order-confirms-v2.png",
     imageAlt: "Реестр подтверждений изменений по проектам в РостПро",
   },
   {
@@ -408,7 +408,7 @@ export const featuresDetailed: FeatureDetail[] = [
       "Учёт материально-технической базы за сотрудником",
       "Юнит-экономика по сотрудникам и отделам",
     ],
-    image: "/screenshots/employees-schedule.png",
+    image: "/screenshots/employees-schedule-v2.png",
     imageAlt: "Штатное расписание с расчётом премий и доплат в РостПро",
   },
   {
