@@ -106,7 +106,12 @@ export default function Header() {
           <Link href="/">
             <Logo />
           </Link>
-          <VersionBadge />
+          {/* Hidden below lg: on phones/tablets the row is already tight with
+              the theme toggle, demo button and menu trigger — the version
+              history is one tap away in the footer / mobile menu anyway. */}
+          <div className="hidden lg:block">
+            <VersionBadge />
+          </div>
         </div>
 
         <nav className="hidden lg:flex items-center gap-1 mx-auto relative">
