@@ -25,6 +25,19 @@ ym(${METRIKA_ID}, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"da
   document.head.appendChild(script);
 }
 
+// Metrika has no API to "forget" a visitor — declining only stops it from
+// running again. To actually remove what it already wrote to the browser,
+// expire its known first-party cookies ourselves.
+function clearYandexMetrikaCookies() {
+  const names = ["_ym_uid", "_ym_d", "_ym_isad", `_ym_visorc_${METRIKA_ID}`];
+  const host = location.hostname;
+  for (const name of names) {
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${host};`;
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${host};`;
+  }
+}
+
 function readConsent(): { analytics: boolean } | null {
   try {
     const raw = localStorage.getItem(CONSENT_KEY);
@@ -62,6 +75,8 @@ export default function CookieConsent() {
       setVisible(true);
     } else if (consent.analytics) {
       loadYandexMetrika();
+    } else {
+      clearYandexMetrikaCookies();
     }
   }, []);
 
@@ -74,6 +89,7 @@ export default function CookieConsent() {
     const wasTracking = !!document.getElementById("yandex-metrika-script");
     writeConsent(analyticsChecked);
     setVisible(false);
+    if (!analyticsChecked) clearYandexMetrikaCookies();
     // Metrika has no clean "stop tracking" call once initialized — reload so
     // a declined choice actually takes effect for the rest of this visit too.
     if (wasTracking && !analyticsChecked) {
