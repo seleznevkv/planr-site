@@ -45,51 +45,50 @@ function writeConsent(analytics: boolean) {
 }
 
 /**
- * Cookie consent banner (152-ФЗ + Роскомнадзор рекомендации по cookie).
- * Necessary cookies (theme preference, this consent flag) always work — no
- * consent is legally required for strictly technical storage. Analytics
- * (Yandex.Metrika) is optional and off by default: the tracking script is
- * only ever injected after the visitor explicitly opts in.
+ * Cookie notice (152-ФЗ + Роскомнадзор рекомендации по cookie). Necessary
+ * cookies (theme preference, this choice) always work. Analytics
+ * (Yandex.Metrika) runs by default like on most RU sites — opt-out, not
+ * opt-in — the banner just discloses it and lets visitors turn it off.
  */
 export default function CookieConsent() {
   const [visible, setVisible] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  const [analyticsChecked, setAnalyticsChecked] = useState(false);
+  const [analyticsChecked, setAnalyticsChecked] = useState(true);
 
   useEffect(() => {
     const consent = readConsent();
-    if (consent) {
-      if (consent.analytics) loadYandexMetrika();
-    } else {
+    if (consent === null) {
+      loadYandexMetrika();
       setVisible(true);
+    } else if (consent.analytics) {
+      loadYandexMetrika();
     }
   }, []);
 
-  function acceptAll() {
+  function acknowledge() {
     writeConsent(true);
-    loadYandexMetrika();
-    setVisible(false);
-  }
-
-  function acceptNecessaryOnly() {
-    writeConsent(false);
     setVisible(false);
   }
 
   function saveChoice() {
+    const wasTracking = !!document.getElementById("yandex-metrika-script");
     writeConsent(analyticsChecked);
-    if (analyticsChecked) loadYandexMetrika();
     setVisible(false);
+    // Metrika has no clean "stop tracking" call once initialized — reload so
+    // a declined choice actually takes effect for the rest of this visit too.
+    if (wasTracking && !analyticsChecked) {
+      window.location.reload();
+    }
   }
 
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-[60] p-4 sm:p-6" role="dialog" aria-label="Согласие на использование cookie">
+    <div className="fixed inset-x-0 bottom-0 z-[60] p-4 sm:p-6" role="dialog" aria-label="Уведомление об использовании cookie">
       <div className="max-w-2xl mx-auto glass-opaque rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-2xl">
         <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-          Мы используем файлы cookie: необходимые — для работы сайта, и аналитические (Яндекс.Метрика) — только с
-          вашего согласия, для улучшения сайта. Подробнее — в{" "}
+          Сайт использует необходимые cookie для работы, а также аналитические (Яндекс.Метрика) — они включены по
+          умолчанию и помогают улучшать сайт. Вы можете отключить аналитику. Подробнее — в{" "}
           <a href="/privacy" className="text-[var(--color-brand-blue)] hover:underline">
             политике конфиденциальности
           </a>
@@ -115,8 +114,8 @@ export default function CookieConsent() {
               <div>
                 <p className="text-sm font-semibold text-[var(--text-primary)]">Аналитические</p>
                 <p className="mt-1 text-xs text-[var(--text-tertiary)] leading-relaxed">
-                  Яндекс.Метрика: статистика посещений, карта кликов и вебвизор — помогают понять, что улучшить на
-                  сайте.
+                  Яндекс.Метрика: статистика посещений, карта кликов и вебвизор — включены по умолчанию, помогают
+                  понять, что улучшить на сайте. Можно отключить.
                 </p>
               </div>
               <input
@@ -148,14 +147,9 @@ export default function CookieConsent() {
                 Сохранить выбор
               </Button>
             ) : (
-              <>
-                <Button variant="ghost" size="sm" onClick={acceptNecessaryOnly} className="flex-1 sm:flex-none">
-                  Только необходимые
-                </Button>
-                <Button variant="primary" size="sm" onClick={acceptAll} className="flex-1 sm:flex-none">
-                  Принять все
-                </Button>
-              </>
+              <Button variant="primary" size="sm" onClick={acknowledge} className="flex-1 sm:flex-none">
+                Хорошо, понятно
+              </Button>
             )}
           </div>
         </div>
