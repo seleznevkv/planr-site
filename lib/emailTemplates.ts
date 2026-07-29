@@ -19,7 +19,7 @@ export function welcomeEmail(name: string) {
 
   <p style="font-size: 16px; font-weight: 700; margin-top: 24px;">🏁 Быстрый старт</p>
   <ul style="font-size: 15px; line-height: 1.6; padding-left: 20px; margin: 0;">
-    <li>Ваша демо-версия: <a href="https://demo.planr.cloud/login" style="color: #3A9CD7;">РостПро</a> — здесь вы можете протестировать интерфейс и основные функции.</li>
+    <li>Ваша демо-версия: <a href="https://demo.rostpro.tech/" style="color: #3A9CD7;">РостПро</a> — здесь вы можете протестировать интерфейс и основные функции.</li>
     <li>Документация и руководства: <a href="https://docs.rostpro.tech/" style="color: #3A9CD7;">https://docs.rostpro.tech/</a> — подробное описание всех модулей и настроек.</li>
   </ul>
 
