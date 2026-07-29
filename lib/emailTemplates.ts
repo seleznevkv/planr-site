@@ -36,5 +36,5 @@ export function welcomeEmail(name: string) {
 </div>
 `;
 
-  return { subject: "Ответ на заявку", html };
+  return { subject: "Ответ на заявку на демонстрацию в РостПро", html };
 }
