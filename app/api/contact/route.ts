@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sendMail } from "@/lib/smtp";
 import { siteConfig } from "@/lib/site";
+import { welcomeEmail } from "@/lib/emailTemplates";
 
 export const runtime = "nodejs";
 
@@ -9,9 +10,16 @@ export const runtime = "nodejs";
 const META_FIELDS = new Set(["project_name", "admin_email", "form_subject", "consent"]);
 
 const HTML_ESCAPES: Record<string, string> = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
+const EMAIL_RE = /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]+$/;
 
 function escapeHtml(value: string) {
   return value.replace(/[&<>"']/g, (c) => HTML_ESCAPES[c]);
+}
+
+// Untrusted form input ends up inside raw SMTP headers/commands — strip any
+// CR/LF so a submitted value can't inject extra headers or SMTP commands.
+function sanitizeHeaderValue(value: string) {
+  return value.replace(/[\r\n]+/g, " ").trim();
 }
 
 export async function POST(req: NextRequest) {
@@ -69,6 +77,33 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     console.error("[/api/contact] failed to send:", err);
     return NextResponse.json({ error: "Не удалось отправить заявку. Попробуйте ещё раз." }, { status: 502 });
+  }
+
+  // Best-effort: the lead is already captured above, so a failure here
+  // shouldn't fail the whole submission — just log it for follow-up.
+  const applicantName = form.get("Имя");
+  const applicantEmail = form.get("Почта");
+  if (typeof applicantName === "string" && typeof applicantEmail === "string") {
+    const name = sanitizeHeaderValue(applicantName);
+    const email = sanitizeHeaderValue(applicantEmail);
+    if (name && EMAIL_RE.test(email)) {
+      try {
+        const { subject, html: welcomeHtml } = welcomeEmail(name);
+        await sendMail({
+          host,
+          port,
+          secure,
+          user,
+          pass,
+          from: `${projectName} <${from}>`,
+          to: email,
+          subject,
+          html: welcomeHtml,
+        });
+      } catch (err) {
+        console.error("[/api/contact] failed to send welcome email to applicant:", err);
+      }
+    }
   }
 
   return NextResponse.json({ ok: true });
