@@ -7,18 +7,23 @@ import { TLSSocket, connect as tlsConnect } from "node:tls";
 // nodemailer during development, and a raw client also keeps runtime deps
 // at zero for a one-email-at-a-time use case.
 
-export type SendMailOptions = {
+export type ConnectionOptions = {
   host: string;
   port: number;
   secure: boolean; // true = implicit TLS from connect (port 465), false = STARTTLS (port 587/25)
   user: string;
   pass: string;
   from: string;
+};
+
+export type Message = {
   to: string;
   subject: string;
   html: string;
   replyTo?: string;
 };
+
+export type SendMailOptions = ConnectionOptions & Message;
 
 type Line = { code: number; text: string };
 
@@ -71,7 +76,18 @@ function extractEmail(address: string): string {
   return m ? m[1] : address.trim();
 }
 
-export async function sendMail(opts: SendMailOptions): Promise<void> {
+/**
+ * Opens a single authenticated SMTP session and lets `handler` send one or
+ * more messages through it (via the `send` callback it's given) before the
+ * connection is closed. Sending multiple messages over one session — rather
+ * than reconnecting/re-authenticating per message — avoids providers (Mail.ru,
+ * Яндекс, etc.) that rate-limit or silently drop rapid repeat logins from the
+ * same account.
+ */
+export async function withSmtpConnection(
+  opts: ConnectionOptions,
+  handler: (send: (message: Message) => Promise<void>) => Promise<void>
+): Promise<void> {
   const connectOnce = () =>
     new Promise<Socket | TLSSocket>((resolve, reject) => {
       const socket = opts.secure
@@ -103,27 +119,42 @@ export async function sendMail(opts: SendMailOptions): Promise<void> {
     assertOk(await sendCommand(socket, Buffer.from(opts.user, "utf8").toString("base64")), "AUTH USER");
     assertOk(await sendCommand(socket, Buffer.from(opts.pass, "utf8").toString("base64")), "AUTH PASS");
 
-    assertOk(await sendCommand(socket, `MAIL FROM:<${extractEmail(opts.from)}>`), "MAIL FROM");
-    assertOk(await sendCommand(socket, `RCPT TO:<${extractEmail(opts.to)}>`), "RCPT TO");
-    assertOk(await sendCommand(socket, "DATA"), "DATA");
+    const send = async (message: Message) => {
+      const activeSocket = socket;
+      assertOk(await sendCommand(activeSocket, `MAIL FROM:<${extractEmail(opts.from)}>`), "MAIL FROM");
+      assertOk(await sendCommand(activeSocket, `RCPT TO:<${extractEmail(message.to)}>`), "RCPT TO");
+      assertOk(await sendCommand(activeSocket, "DATA"), "DATA");
 
-    const headers = [
-      `From: ${opts.from}`,
-      `To: ${opts.to}`,
-      opts.replyTo ? `Reply-To: ${opts.replyTo}` : null,
-      `Subject: ${encodeSubject(opts.subject)}`,
-      "MIME-Version: 1.0",
-      "Content-Type: text/html; charset=utf-8",
-    ]
-      .filter(Boolean)
-      .join("\r\n");
+      const headers = [
+        `From: ${opts.from}`,
+        `To: ${message.to}`,
+        message.replyTo ? `Reply-To: ${message.replyTo}` : null,
+        `Subject: ${encodeSubject(message.subject)}`,
+        "MIME-Version: 1.0",
+        "Content-Type: text/html; charset=utf-8",
+      ]
+        .filter(Boolean)
+        .join("\r\n");
 
-    // Dot-stuff any line that starts with "." per RFC 5321.
-    const body = opts.html.replace(/\r\n/g, "\n").split("\n").map((l) => (l.startsWith(".") ? "." + l : l)).join("\r\n");
+      // Dot-stuff any line that starts with "." per RFC 5321.
+      const body = message.html
+        .replace(/\r\n/g, "\n")
+        .split("\n")
+        .map((l) => (l.startsWith(".") ? "." + l : l))
+        .join("\r\n");
 
-    assertOk(await sendCommand(socket, `${headers}\r\n\r\n${body}\r\n.`), "message body");
+      assertOk(await sendCommand(activeSocket, `${headers}\r\n\r\n${body}\r\n.`), "message body");
+    };
+
+    await handler(send);
     await sendCommand(socket, "QUIT");
   } finally {
     socket.end();
   }
+}
+
+/** Convenience wrapper for sending a single message on its own connection. */
+export async function sendMail(opts: SendMailOptions): Promise<void> {
+  const { to, subject, html, replyTo, ...connectionOpts } = opts;
+  await withSmtpConnection(connectionOpts, (send) => send({ to, subject, html, replyTo }));
 }

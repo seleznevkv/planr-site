@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { sendMail } from "@/lib/smtp";
+import { withSmtpConnection } from "@/lib/smtp";
 import { siteConfig } from "@/lib/site";
 import { welcomeEmail } from "@/lib/emailTemplates";
 
@@ -62,48 +62,37 @@ export async function POST(req: NextRequest) {
     )
     .join("")}</table>`;
 
-  try {
-    await sendMail({
-      host,
-      port,
-      secure,
-      user,
-      pass,
-      from: `${projectName} <${from}>`,
-      to,
-      subject: formSubject,
-      html,
-    });
-  } catch (err) {
-    console.error("[/api/contact] failed to send:", err);
-    return NextResponse.json({ error: "Не удалось отправить заявку. Попробуйте ещё раз." }, { status: 502 });
-  }
-
-  // Best-effort: the lead is already captured above, so a failure here
-  // shouldn't fail the whole submission — just log it for follow-up.
   const applicantName = form.get("Имя");
   const applicantEmail = form.get("Почта");
+  let welcomeTarget: { name: string; email: string } | null = null;
   if (typeof applicantName === "string" && typeof applicantEmail === "string") {
     const name = sanitizeHeaderValue(applicantName);
     const email = sanitizeHeaderValue(applicantEmail);
-    if (name && EMAIL_RE.test(email)) {
-      try {
-        const { subject, html: welcomeHtml } = welcomeEmail(name);
-        await sendMail({
-          host,
-          port,
-          secure,
-          user,
-          pass,
-          from: `${projectName} <${from}>`,
-          to: email,
-          subject,
-          html: welcomeHtml,
-        });
-      } catch (err) {
-        console.error("[/api/contact] failed to send welcome email to applicant:", err);
+    if (name && EMAIL_RE.test(email)) welcomeTarget = { name, email };
+  }
+
+  try {
+    await withSmtpConnection(
+      { host, port, secure, user, pass, from: `${projectName} <${from}>` },
+      async (send) => {
+        // Admin notification — must succeed, or the whole submission is reported as failed.
+        await send({ to, subject: formSubject, html });
+
+        // Welcome email to the applicant — best-effort, same connection so a
+        // second fresh login isn't needed (some providers throttle/drop those).
+        if (welcomeTarget) {
+          try {
+            const { subject, html: welcomeHtml } = welcomeEmail(welcomeTarget.name);
+            await send({ to: welcomeTarget.email, subject, html: welcomeHtml });
+          } catch (err) {
+            console.error("[/api/contact] failed to send welcome email to applicant:", err);
+          }
+        }
       }
-    }
+    );
+  } catch (err) {
+    console.error("[/api/contact] failed to send:", err);
+    return NextResponse.json({ error: "Не удалось отправить заявку. Попробуйте ещё раз." }, { status: 502 });
   }
 
   return NextResponse.json({ ok: true });
