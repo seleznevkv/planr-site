@@ -172,7 +172,7 @@ export default function HomePage() {
         <SectionHeading
           eyebrow="Возможности"
           title="Всё, что нужно проектной компании — без сторонних сервисов"
-          description="Не только задачи и время: РостПро закрывает финансовый контроль, работу с подрядчиками и документооборот целиком."
+          description="Автоматизация проектной деятельности — это не только задачи и время: РостПро закрывает финансовый контроль, работу с подрядчиками и документооборот целиком."
           align="left"
         />
         <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -197,7 +197,12 @@ export default function HomePage() {
 
       {/* Comparison table */}
       <Section size="sm">
-        <SectionHeading eyebrow="Сравнение" title="Чем РостПро отличается от привычных инструментов" align="left" />
+        <SectionHeading
+          eyebrow="Сравнение"
+          title="Чем РостПро отличается от привычных инструментов"
+          description="Автоматизация проектного управления вместо разрозненных таблиц и переписки — единая система управления проектами для всей команды."
+          align="left"
+        />
         <Reveal delay={0.1}>
           <div className="mt-10 overflow-x-auto">
             <GlassCard hover={false} padding="none" className="min-w-[560px] overflow-hidden">
