@@ -1,32 +1,70 @@
 version: '2.4'
 services:
-  # planr-site — Next.js в standalone-режиме (node-сервер на :80). Только UI +
-  # /api/contact (отправка письма по SMTP), без миграций и БД.
-  # Маршрутизация — через traefik по домену planr.cloud.
+  # planr-site — Next.js в standalone-режиме (node-сервер на :80). Только UI:
+  # нет api/migrations и БД. Основной домен — rostpro.tech; planr.cloud —
+  # вспомогательный, редиректится на основной через traefik.
   ui:
-    image: registry.planr.cloud/site/planr-site-ui:26.7.16
+    image: registry.planr.cloud/site/planr-site-ui:26.7.30.2
     mem_limit: 512m
-    # Traefik подключён к внешней сети site_default
-    networks:
-      - site_default
     environment:
       # SMTP settings used by app/api/contact/route.ts to send the contact
       # form's notification email. Fill in real values (or set them via a
       # deploy-time secrets file) — the form fails closed if they're missing.
-      - SMTP_HOST=smtp.yandex.ru
+      - SMTP_HOST=smtp.mail.ru
       - SMTP_PORT=465
       - SMTP_SECURE=true
-      - SMTP_USER=office@planr.cloud
+      - SMTP_USER=info@rostpro.com
       - SMTP_PASS=
-      - CONTACT_EMAIL_TO=office@planr.cloud
+      - CONTACT_EMAIL_TO=office@rostpro.com
+    networks:
+      - site_default
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=site_default"
-      - "traefik.http.routers.planr-site-ui.rule=Host(`planr.cloud`)"
+
+      # Основной домен
+      - "traefik.http.routers.planr-site-ui.rule=Host(`rostpro.tech`)"
       - "traefik.http.routers.planr-site-ui.entrypoints=websecure"
       - "traefik.http.routers.planr-site-ui.tls.certresolver=myresolver"
       - "traefik.http.services.planr-site-ui.loadbalancer.server.port=80"
       - "traefik.http.routers.planr-site-ui.middlewares=traefik-compress"
+
+      # Вспомогательный домен — редирект на основной planr.cloud
+      - "traefik.http.routers.planr-site-ui-redirect.rule=Host(`planr.cloud`)"
+      - "traefik.http.routers.planr-site-ui-redirect.entrypoints=websecure"
+      - "traefik.http.routers.planr-site-ui-redirect.tls.certresolver=myresolver"
+      - "traefik.http.routers.planr-site-ui-redirect.service=planr-site-ui"
+      - "traefik.http.routers.planr-site-ui-redirect.middlewares=planr-site-redirect"
+      - "traefik.http.middlewares.planr-site-redirect.redirectregex.regex=^https?://planr\\.cloud/(.*)"
+      - "traefik.http.middlewares.planr-site-redirect.redirectregex.replacement=https://rostpro.tech/$${1}"
+      - "traefik.http.middlewares.planr-site-redirect.redirectregex.permanent=true"
+      # Ещё один вспомогательный домен — редирект на основной rostpro.com
+      - "traefik.http.routers.planr-site-ui-redirect2.rule=Host(`rostpro.com`)"
+      - "traefik.http.routers.planr-site-ui-redirect2.entrypoints=websecure"
+      - "traefik.http.routers.planr-site-ui-redirect2.tls.certresolver=myresolver"
+      - "traefik.http.routers.planr-site-ui-redirect2.service=planr-site-ui"
+      - "traefik.http.routers.planr-site-ui-redirect2.middlewares=rostpro-com-redirect"
+      - "traefik.http.middlewares.rostpro-com-redirect.redirectregex.regex=^https?://rostpro\\.com/(.*)"
+      - "traefik.http.middlewares.rostpro-com-redirect.redirectregex.replacement=https://rostpro.tech/$${1}"
+      - "traefik.http.middlewares.rostpro-com-redirect.redirectregex.permanent=true"
+      # Ещё один вспомогательный домен — редирект на основной rostpro.cloud
+      - "traefik.http.routers.planr-site-ui-redirect3.rule=Host(`rostpro.cloud`)"
+      - "traefik.http.routers.planr-site-ui-redirect3.entrypoints=websecure"
+      - "traefik.http.routers.planr-site-ui-redirect3.tls.certresolver=myresolver"
+      - "traefik.http.routers.planr-site-ui-redirect3.service=planr-site-ui"
+      - "traefik.http.routers.planr-site-ui-redirect3.middlewares=rostpro-cloud-redirect"
+      - "traefik.http.middlewares.rostpro-cloud-redirect.redirectregex.regex=^https?://rostpro\\.cloud/(.*)"
+      - "traefik.http.middlewares.rostpro-cloud-redirect.redirectregex.replacement=https://rostpro.tech/$${1}"
+      - "traefik.http.middlewares.rostpro-cloud-redirect.redirectregex.permanent=true"
+      # Ещё один вспомогательный домен — редирект на основной ростпро.рф
+      - "traefik.http.routers.planr-site-ui-redirect5.rule=Host(`xn--n1aaccceh.xn--p1ai`)"
+      - "traefik.http.routers.planr-site-ui-redirect5.entrypoints=websecure"
+      - "traefik.http.routers.planr-site-ui-redirect5.tls.certresolver=myresolver"
+      - "traefik.http.routers.planr-site-ui-redirect5.service=planr-site-ui"
+      - "traefik.http.routers.planr-site-ui-redirect5.middlewares=rostpro-rf-cyr-redirect"
+      - "traefik.http.middlewares.rostpro-rf-cyr-redirect.redirectregex.regex=^https?://xn--n1aaccceh\\.xn--p1ai/(.*)"
+      - "traefik.http.middlewares.rostpro-rf-cyr-redirect.redirectregex.replacement=https://rostpro.tech/$${1}"
+      - "traefik.http.middlewares.rostpro-rf-cyr-redirect.redirectregex.permanent=true"
 
 networks:
   site_default:
