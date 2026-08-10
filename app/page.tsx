@@ -45,22 +45,16 @@ export default function HomePage() {
           <div className="min-w-0">
             <Reveal>
               <h1 className="max-w-xl text-[1.85rem] sm:text-4xl md:text-5xl lg:text-[3.1rem] font-extrabold leading-[1.15] sm:leading-[1.1] tracking-tight text-[var(--text-primary)]">
-                Программа для проектной компании. Контроль{" "}
-                <span className="text-gradient-glow text-gradient" data-text="прибыльности">
-                  прибыльности
+                Проектная компания видит{" "}
+                <span className="text-gradient-glow text-gradient" data-text="прибыль">
+                  прибыль
                 </span>{" "}
-                проектов
+                насквозь — от сметы до последнего акта
               </h1>
             </Reveal>
             <Reveal delay={0.1}>
               <p className="mt-6 text-lg text-[var(--text-secondary)] leading-relaxed max-w-xl">
-                Задачи, часы, документы и деньги проекта — в одном контуре. Не четыре системы и
-                почта между ними.
-              </p>
-            </Reveal>
-            <Reveal delay={0.16}>
-              <p className="mt-4 text-sm text-[var(--text-tertiary)] max-w-xl">
-                Архитектурные бюро · проектные институты · инжиниринговые компании · дизайн-студии
+                Одна система вместо четырёх и переписки: задачи, часы, документы, деньги.
               </p>
             </Reveal>
             <Reveal delay={0.24}>
@@ -160,12 +154,12 @@ export default function HomePage() {
 
       {/* Экран 4 — чем отличаемся */}
       <Section size="sm">
-        <SectionHeading title="Что редко бывает у других" align="left" />
+        <SectionHeading title="Преимущества над конкурентами" align="left" />
         <div className="mt-10 grid sm:grid-cols-3 gap-6">
           {differentiation.map((f, i) => (
             <Reveal key={f.slug} delay={i * 0.06}>
               <GlassCard className="h-full">
-                <span className="inline-block mb-4 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide bg-[var(--color-brand-blue)]/10 text-[var(--color-brand-blue)]">
+                <span className="inline-block mb-4 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide bg-emerald-500/10 text-emerald-500">
                   {f.badge}
                 </span>
                 <span className="w-11 h-11 rounded-xl icon-chip flex items-center justify-center text-[var(--color-brand-blue)]">
@@ -447,9 +441,8 @@ export default function HomePage() {
               </h2>
               <p className="mt-4 text-[var(--text-secondary)] max-w-xl">
                 Ответим на вопросы и посчитаем себестоимость по вашему договору. Единая
-                ERP-платформа для проектов, ресурсов, документов, финансов и аналитики. Подходит
-                для управления проектным бизнесом, проектной организацией, проектной компанией,
-                проектным бюро или проектированием любого масштаба.
+                платформа для проектов, ресурсов, документов, финансов и аналитики — для любой
+                проектной компании.
               </p>
             </div>
             <ContactForm />
