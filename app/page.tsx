@@ -19,7 +19,8 @@ import {
   objections,
   comparisonTable,
   trustPoints,
-  aboutStatement,
+  aboutStatementLead,
+  aboutStatementBody,
   implementationSupport,
   implementationNote,
   implementationDurationNote,
@@ -43,9 +44,12 @@ const restQuotes = problemQuotes.filter((q) => q !== featuredQuote);
 function Connector({ children }: { children: string }) {
   return (
     <Reveal>
-      <p className="mt-10 text-center text-sm text-[var(--text-tertiary)] max-w-xl mx-auto italic">
-        {children}
-      </p>
+      <div className="mt-16 flex flex-col items-center gap-4">
+        <span className="w-10 h-[3px] rounded-full bg-[var(--color-brand-blue)]/50" />
+        <p className="text-center text-lg sm:text-xl font-medium text-[var(--text-primary)] max-w-2xl leading-snug">
+          {children}
+        </p>
+      </div>
     </Reveal>
   );
 }
@@ -144,7 +148,8 @@ export default function HomePage() {
       <Section size="sm">
         <SectionHeading title="Для кого это" description="Компании, которые уже работают в РостПро, и роли, для которых он решает конкретную задачу." />
         <Reveal delay={0.1}>
-          <div className="mt-10">
+          <p className="mt-10 text-xs font-semibold uppercase tracking-wide text-[var(--color-brand-blue)]">Отрасли</p>
+          <div className="mt-4">
             <ExpandableGrid
               visibleCount={6}
               gridClassName="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3"
@@ -196,7 +201,12 @@ export default function HomePage() {
             />
           </div>
         </Reveal>
-        <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="mt-14 flex items-center gap-4">
+          <span className="h-px flex-1 bg-[var(--glass-border-soft)]" />
+          <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-brand-blue)]">Роли</p>
+          <span className="h-px flex-1 bg-[var(--glass-border-soft)]" />
+        </div>
+        <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {roles.map((r, i) => (
             <Reveal key={r.name} delay={i * 0.07}>
               <GlassCard className="h-full flex flex-col items-center text-center">
@@ -433,8 +443,13 @@ export default function HomePage() {
       {/* Блок 10 — Манифест (опущен, усилен визуально) */}
       <Section size="lg">
         <Reveal>
-          <p className="max-w-3xl mx-auto text-center text-2xl sm:text-3xl font-medium text-[var(--text-primary)] leading-relaxed">
-            {aboutStatement}
+          <p className="max-w-3xl mx-auto text-center text-3xl sm:text-4xl font-bold text-[var(--text-primary)] leading-snug">
+            {aboutStatementLead}
+          </p>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <p className="mt-8 max-w-xl mx-auto text-center text-base text-[var(--text-secondary)] leading-relaxed">
+            {aboutStatementBody}
           </p>
         </Reveal>
       </Section>
