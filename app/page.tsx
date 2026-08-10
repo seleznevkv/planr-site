@@ -370,7 +370,7 @@ export default function HomePage() {
           </div>
         </Reveal>
         {/* Блок 7 «Что изменится в работе» — ждёт решения, см. чат */}
-        <Connector>Если вопросов больше нет — вот сколько это стоит.</Connector>
+        <Connector>Перейти на это можно. Вот что обычно спрашивают перед этим шагом.</Connector>
       </Section>
 
       {/* Блок 8 — Вопросы перед внедрением + помощь (слито) */}
@@ -412,7 +412,7 @@ export default function HomePage() {
         <Reveal delay={0.1}>
           <p className="mt-8 text-center text-sm text-[var(--text-tertiary)] max-w-2xl mx-auto">{implementationNote}</p>
         </Reveal>
-        <Connector>И несколько слов о том, кто за этим стоит.</Connector>
+        <Connector>Если вопросов больше нет — вот сколько это стоит.</Connector>
       </Section>
 
       {/* Блок 9 — Цены (поднято) */}
@@ -438,6 +438,7 @@ export default function HomePage() {
             </Button>
           </div>
         </Reveal>
+        <Connector>И несколько слов о том, кто за этим стоит.</Connector>
       </Section>
 
       {/* Блок 10 — Манифест (опущен, усилен визуально) */}
