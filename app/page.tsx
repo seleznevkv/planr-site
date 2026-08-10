@@ -18,13 +18,14 @@ import {
   systemShowcase,
   objections,
   comparisonTable,
-  trustStatement,
+  trustPoints,
+  aboutStatement,
   implementationSupport,
   implementationNote,
   implementationDurationNote,
   pricingCaption,
 } from "@/lib/content";
-import { IconArrowRight, IconCheck, IconAndroid, IconApple, IconShield } from "@/components/icons";
+import { IconArrowRight, IconCheck, IconAndroid, IconApple } from "@/components/icons";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -253,6 +254,17 @@ export default function HomePage() {
         </div>
       </Section>
 
+      {/* О клиентах — из /about */}
+      <Section size="sm">
+        <Reveal>
+          <GlassCard variant="strong" padding="lg" hover={false} className="max-w-3xl mx-auto text-center">
+            <p className="text-lg sm:text-xl text-[var(--text-primary)] font-medium leading-relaxed">
+              {aboutStatement}
+            </p>
+          </GlassCard>
+        </Reveal>
+      </Section>
+
       {/* Implementation support — раскрывает ответ на «внедрение дороже подписки» */}
       <Section size="sm">
         <SectionHeading eyebrow="Внедрение" title="Помощь с внедрением — бесплатно" description={implementationDurationNote} align="left" />
@@ -420,15 +432,22 @@ export default function HomePage() {
 
       {/* Экран 8 — доверие */}
       <Section>
-        <SectionHeading title="Надёжность корпоративного уровня" />
-        <Reveal delay={0.1}>
-          <GlassCard variant="strong" hover={false} className="mt-14 max-w-3xl mx-auto text-center">
-            <span className="w-12 h-12 mx-auto rounded-2xl icon-chip flex items-center justify-center text-[var(--color-brand-blue)]">
-              <IconShield className="w-6 h-6" />
-            </span>
-            <p className="mt-5 text-base text-[var(--text-primary)] font-medium leading-relaxed">{trustStatement}</p>
-          </GlassCard>
-        </Reveal>
+        <SectionHeading
+          title="Надёжность корпоративного уровня"
+          description="Данные компании защищены на всех уровнях — от инфраструктуры до прав доступа отдельного сотрудника."
+        />
+        <div className="mt-14 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+          {trustPoints.map((t, i) => (
+            <Reveal key={t.label} delay={i * 0.07}>
+              <GlassCard variant="strong" hover={false} className="h-full flex flex-col items-center text-center">
+                <span className="w-12 h-12 rounded-2xl icon-chip flex items-center justify-center text-[var(--color-brand-blue)]">
+                  <t.icon className="w-6 h-6" />
+                </span>
+                <p className="mt-4 text-sm font-semibold text-[var(--text-primary)] leading-snug">{t.label}</p>
+              </GlassCard>
+            </Reveal>
+          ))}
+        </div>
       </Section>
 
       {/* Экран 9 — финальный CTA + форма */}
