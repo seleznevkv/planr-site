@@ -147,7 +147,7 @@ export default function HomePage() {
 
       {/* Блок 3 — Для кого это: отрасли + роли (объединено, поднято) */}
       <Section size="sm">
-        <SectionHeading title="Для кого это" description="Компании, которые уже работают в РостПро, и роли, для которых он решает конкретную задачу." />
+        <SectionHeading title="Для кого это" description="Компании, которые уже ведут дела в РостПро, и роли, для которых он решает конкретную задачу." />
         <Reveal delay={0.1}>
           <p className="mt-10 text-xs font-semibold uppercase tracking-wide text-[var(--color-brand-blue)]">Отрасли</p>
           <div className="mt-4">
