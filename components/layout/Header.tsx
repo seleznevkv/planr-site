@@ -225,14 +225,14 @@ export default function Header() {
         <div className="hidden lg:flex items-center gap-3 ml-auto">
           <ThemeToggle />
           <Button href="/contact" size="md">
-            Запросить демонстрацию
+            Записаться на консультацию
           </Button>
         </div>
 
         <div className="flex lg:hidden items-center gap-2 ml-auto">
           <ThemeToggle />
           <Button href="/contact" size="sm">
-            Демо
+            Консультация
           </Button>
           <button
             aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
@@ -339,7 +339,7 @@ export default function Header() {
                 })}
                 <div className="pt-2">
                   <Button href="/contact" className="w-full">
-                    Запросить демонстрацию
+                    Записаться на консультацию
                   </Button>
                 </div>
               </div>

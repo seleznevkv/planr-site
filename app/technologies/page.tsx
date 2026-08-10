@@ -139,7 +139,7 @@ export default function TechnologiesPage() {
               Нужен разбор архитектуры перед внедрением?
             </h2>
             <p className="mt-3 text-[var(--text-secondary)] max-w-xl mx-auto">
-              Обсудим требования вашей ИТ-службы и покажем платформу изнутри на демо-звонке.
+              Обсудим требования вашей ИТ-службы и ответим на вопросы по архитектуре на консультации.
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
               <Button href="/contact" size="lg">Записаться на демо</Button>

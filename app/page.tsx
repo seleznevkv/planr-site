@@ -6,6 +6,9 @@ import Button from "@/components/ui/Button";
 import Reveal from "@/components/ui/Reveal";
 import ScreenshotFrame from "@/components/graphics/ScreenshotFrame";
 import ExpandableGrid from "@/components/ui/ExpandableGrid";
+import ContactForm from "@/components/contact/ContactForm";
+import RoiCalculator from "@/components/pricing/RoiCalculator";
+import PricingPlans from "@/components/pricing/PricingPlans";
 import {
   heroChecklist,
   industryTypes,
@@ -19,6 +22,7 @@ import {
   implementationSupport,
   implementationNote,
   implementationDurationNote,
+  pricingCaption,
 } from "@/lib/content";
 import { IconArrowRight, IconCheck, IconX, IconAndroid, IconApple, IconShield } from "@/components/icons";
 import { cn } from "@/lib/utils";
@@ -52,21 +56,31 @@ export default function HomePage() {
                 >
                   прибыльность
                 </span>{" "}
-                проектов и принимайте решения на основе актуальных данных
+                проектного бизнеса — по каждому проекту
               </h1>
             </Reveal>
             <Reveal delay={0.16}>
               <p className="mt-6 text-lg text-[var(--text-secondary)] leading-relaxed max-w-xl">
                 РостПро связывает задачи, табели, подрядчиков и деньги: вы видите маржу каждого
                 проекта и этапа в реальном времени — без сведения Excel-таблиц по пятницам.
-                Внедрение — от нескольких дней до нескольких недель в зависимости от команды,
-                60 дней для тестов.
+                Внедрение — от нескольких дней до нескольких недель в зависимости от команды.
               </p>
             </Reveal>
+            <Reveal delay={0.2}>
+              <div className="mt-6 inline-flex items-center gap-2.5 px-5 py-2.5 rounded-2xl glass-soft">
+                <IconShield className="w-4 h-4 text-[var(--color-brand-blue)] shrink-0" />
+                <span className="text-sm font-semibold text-[var(--text-primary)]">
+                  60 дней на тест — не подойдёт, вернём деньги
+                </span>
+              </div>
+            </Reveal>
             <Reveal delay={0.24}>
-              <div className="mt-9 flex flex-wrap items-center gap-4">
-                <Button href="/contact" size="lg" icon={<IconArrowRight className="w-4 h-4" />}>
-                  Запросить демонстрацию
+              <div className="mt-7 flex flex-wrap items-center gap-4">
+                <Button href="#contact-form" size="lg" icon={<IconArrowRight className="w-4 h-4" />}>
+                  Записаться на консультацию
+                </Button>
+                <Button href="#pricing" size="lg" variant="secondary">
+                  Тарифы от 10 000 ₽/мес
                 </Button>
               </div>
             </Reveal>
@@ -111,6 +125,72 @@ export default function HomePage() {
               </span>
             ))}
           />
+        </Reveal>
+      </Section>
+
+      {/* 4 key questions */}
+      <Section>
+        <SectionHeading title="4 вопроса, ответы на которые руководитель должен видеть ежедневно" />
+        <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {keyQuestions.map((q, i) => (
+            <Reveal key={q.question} delay={i * 0.08}>
+              <GlassCard className="h-full">
+                <span className="w-12 h-12 rounded-2xl icon-chip flex items-center justify-center text-[var(--color-brand-blue)]">
+                  <q.icon className="w-6 h-6" />
+                </span>
+                <h3 className="mt-5 text-base font-bold text-[var(--text-primary)] leading-snug">
+                  {q.question}
+                </h3>
+                <p className="mt-2 text-sm text-[var(--text-secondary)] leading-relaxed">{q.text}</p>
+              </GlassCard>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      {/* Before / after */}
+      <Section>
+        <SectionHeading title="Вашей команде станет проще, а не сложнее" />
+        <div className="mt-14 max-w-3xl mx-auto space-y-4">
+          {beforeAfterPairs.map((p, i) => (
+            <Reveal key={p.before} delay={i * 0.06}>
+              <GlassCard hover={false} className="grid sm:grid-cols-[1fr_auto_1fr] gap-4 sm:gap-6 items-center">
+                <div className="flex items-start gap-3">
+                  <span className="w-6 h-6 shrink-0 rounded-full flex items-center justify-center text-[var(--color-brand-orange)] bg-[var(--color-brand-orange)]/10">
+                    <IconX className="w-3.5 h-3.5" />
+                  </span>
+                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed">{p.before}</p>
+                </div>
+                <IconArrowRight className="hidden sm:block w-4 h-4 text-[var(--text-tertiary)] justify-self-center" />
+                <div className="flex items-start gap-3">
+                  <span className="w-6 h-6 shrink-0 rounded-full flex items-center justify-center text-[var(--color-brand-blue)] bg-[var(--color-brand-blue)]/10">
+                    <IconCheck className="w-3.5 h-3.5" />
+                  </span>
+                  <p className="text-sm text-[var(--text-primary)] font-medium leading-relaxed">{p.after}</p>
+                </div>
+              </GlassCard>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      {/* ROI calculator */}
+      <Section size="sm">
+        <SectionHeading
+          eyebrow="Окупаемость"
+          title="Сколько вы теряете на ручной отчётности сейчас"
+          description="Посчитайте на своих цифрах: сколько часов команда тратит на сведение данных вручную и за сколько дней это окупает тариф «Команда»."
+          align="left"
+        />
+        <Reveal delay={0.1} className="mt-10">
+          <RoiCalculator />
+        </Reveal>
+        <Reveal delay={0.15}>
+          <div className="mt-8 text-center">
+            <Button href="#contact-form" size="lg" icon={<IconArrowRight className="w-4 h-4" />}>
+              Записаться на консультацию
+            </Button>
+          </div>
         </Reveal>
       </Section>
 
@@ -265,20 +345,18 @@ export default function HomePage() {
         </Reveal>
       </Section>
 
-      {/* 4 key questions */}
+      {/* Roles */}
       <Section>
-        <SectionHeading title="4 вопроса, ответы на которые руководитель должен видеть ежедневно" />
-        <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {keyQuestions.map((q, i) => (
-            <Reveal key={q.question} delay={i * 0.08}>
-              <GlassCard className="h-full">
-                <span className="w-12 h-12 rounded-2xl icon-chip flex items-center justify-center text-[var(--color-brand-blue)]">
-                  <q.icon className="w-6 h-6" />
+        <SectionHeading title="Решения для каждой роли" />
+        <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {roles.map((r, i) => (
+            <Reveal key={r.name} delay={i * 0.07}>
+              <GlassCard className="h-full flex flex-col items-center text-center">
+                <span className="w-14 h-14 rounded-full icon-chip flex items-center justify-center text-base font-bold text-[var(--color-brand-blue)]">
+                  {r.initials}
                 </span>
-                <h3 className="mt-5 text-base font-bold text-[var(--text-primary)] leading-snug">
-                  {q.question}
-                </h3>
-                <p className="mt-2 text-sm text-[var(--text-secondary)] leading-relaxed">{q.text}</p>
+                <h3 className="mt-4 text-base font-bold text-[var(--text-primary)]">{r.name}</h3>
+                <p className="mt-2 text-sm text-[var(--text-secondary)] leading-relaxed">{r.text}</p>
               </GlassCard>
             </Reveal>
           ))}
@@ -287,7 +365,10 @@ export default function HomePage() {
 
       {/* Business metrics */}
       <Section>
-        <SectionHeading title="Все ключевые показатели бизнеса — в одном окне" />
+        <SectionHeading
+          title="Все ключевые показатели бизнеса — в одном окне"
+          description="Пример данных для демонстрации возможностей платформы — цифры конкретной компании мы не публикуем."
+        />
         <div className="mt-14 grid lg:grid-cols-[1fr_1.1fr] gap-8 items-center">
           <Reveal>
             <GlassCard variant="strong" padding="md" hover={false} className="overflow-hidden">
@@ -330,48 +411,29 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* Roles */}
-      <Section>
-        <SectionHeading title="Решения для каждой роли" />
-        <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {roles.map((r, i) => (
-            <Reveal key={r.name} delay={i * 0.07}>
-              <GlassCard className="h-full flex flex-col items-center text-center">
-                <span className="w-14 h-14 rounded-full icon-chip flex items-center justify-center text-base font-bold text-[var(--color-brand-blue)]">
-                  {r.initials}
-                </span>
-                <h3 className="mt-4 text-base font-bold text-[var(--text-primary)]">{r.name}</h3>
-                <p className="mt-2 text-sm text-[var(--text-secondary)] leading-relaxed">{r.text}</p>
-              </GlassCard>
-            </Reveal>
-          ))}
-        </div>
-      </Section>
-
-      {/* Before / after */}
-      <Section>
-        <SectionHeading title="Вашей команде станет проще, а не сложнее" />
-        <div className="mt-14 max-w-3xl mx-auto space-y-4">
-          {beforeAfterPairs.map((p, i) => (
-            <Reveal key={p.before} delay={i * 0.06}>
-              <GlassCard hover={false} className="grid sm:grid-cols-[1fr_auto_1fr] gap-4 sm:gap-6 items-center">
-                <div className="flex items-start gap-3">
-                  <span className="w-6 h-6 shrink-0 rounded-full flex items-center justify-center text-[var(--color-brand-orange)] bg-[var(--color-brand-orange)]/10">
-                    <IconX className="w-3.5 h-3.5" />
-                  </span>
-                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed">{p.before}</p>
-                </div>
-                <IconArrowRight className="hidden sm:block w-4 h-4 text-[var(--text-tertiary)] justify-self-center" />
-                <div className="flex items-start gap-3">
-                  <span className="w-6 h-6 shrink-0 rounded-full flex items-center justify-center text-[var(--color-brand-blue)] bg-[var(--color-brand-blue)]/10">
-                    <IconCheck className="w-3.5 h-3.5" />
-                  </span>
-                  <p className="text-sm text-[var(--text-primary)] font-medium leading-relaxed">{p.after}</p>
-                </div>
-              </GlassCard>
-            </Reveal>
-          ))}
-        </div>
+      {/* Pricing summary */}
+      <Section size="sm" id="pricing">
+        <SectionHeading
+          eyebrow="Тарифы"
+          title="Прозрачные цены без скрытых платежей"
+          description="Тарифы отличаются только количеством пользователей — полный функционал РостПро доступен на каждом плане."
+          align="left"
+        />
+        <Reveal delay={0.1}>
+          <div className="mt-10">
+            <PricingPlans />
+          </div>
+        </Reveal>
+        <Reveal delay={0.15}>
+          <p className="mt-8 max-w-2xl mx-auto text-center text-sm text-[var(--text-secondary)] leading-relaxed">
+            {pricingCaption}
+          </p>
+          <div className="mt-6 flex justify-center">
+            <Button href="/pricing" variant="secondary">
+              Смотреть все тарифы и вопросы
+            </Button>
+          </div>
+        </Reveal>
       </Section>
 
       {/* Trust / reliability */}
@@ -408,33 +470,24 @@ export default function HomePage() {
         </Reveal>
       </Section>
 
-      {/* CTA */}
-      <Section>
+      {/* Contact form */}
+      <Section id="contact-form">
         <Reveal>
-          <GlassCard variant="strong" padding="lg" hover={false} className="text-center relative overflow-hidden">
-            <div
-              className="absolute -top-24 left-1/2 -translate-x-1/2 w-[36rem] h-[20rem] rounded-full blur-3xl opacity-20 dark:opacity-10 pointer-events-none"
-              style={{ background: "var(--color-brand-blue)" }}
-            />
-            <div className="relative">
-              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[var(--text-primary)] max-w-2xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[var(--text-primary)]">
                 Управляйте проектным бизнесом с полной прозрачностью
               </h2>
-              <p className="mt-4 text-[var(--text-secondary)] max-w-xl mx-auto">
-                РостПро подходит для управления проектным бизнесом, проектной организацией,
-                проектной компанией или проектным бюро — а также для управления
-                проектированием, стройкой или консалтингом любого масштаба. Единая
-                ERP-платформа для проектов, ресурсов, документов, финансов и аналитики:
+              <p className="mt-4 text-[var(--text-secondary)] max-w-xl">
+                Единая ERP-платформа для проектов, ресурсов, документов, финансов и аналитики:
                 контролируйте эффективность компании, принимайте решения быстрее и
-                масштабируйте бизнес без потери управляемости.
+                масштабируйте бизнес без потери управляемости. Подходит для управления
+                проектным бизнесом, проектной организацией, проектной компанией, проектным
+                бюро или проектированием любого масштаба.
               </p>
-              <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-                <Button href="/contact" size="lg">
-                  Запросить демонстрацию
-                </Button>
-              </div>
             </div>
-          </GlassCard>
+            <ContactForm />
+          </div>
         </Reveal>
       </Section>
     </>

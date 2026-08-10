@@ -176,7 +176,7 @@ export default function AboutPage() {
               Присоединяйтесь к компаниям, которые управляют организацией и проектами эффективно
             </h2>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-              <Button href="/contact" size="lg">Запросить демонстрацию</Button>
+              <Button href="/contact" size="lg">Записаться на консультацию</Button>
               <Button href="/features" size="lg" variant="secondary">Смотреть возможности</Button>
             </div>
           </GlassCard>

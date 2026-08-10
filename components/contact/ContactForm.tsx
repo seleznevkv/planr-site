@@ -40,7 +40,7 @@ export default function ContactForm() {
     <GlassCard variant="strong" padding="lg" hover={false}>
       <h3 className="text-xl font-bold text-[var(--text-primary)]">Оставьте заявку</h3>
       <p className="mt-2 text-sm text-[var(--text-secondary)]">
-        Расскажем о РостПро и покажем платформу на демо-звонке за 20 минут.
+        Ответим на все вопросы о РостПро и, если готовы, обсудим договор — разговор занимает около 20 минут.
       </p>
       <form onSubmit={handleSubmit} className="mt-6 space-y-4">
         <input type="hidden" name="project_name" value={siteConfig.name} />
@@ -72,7 +72,7 @@ export default function ContactForm() {
           </p>
         )}
         <Button type="submit" className="w-full" size="lg" disabled={loading}>
-          {loading ? "Отправляем…" : "Записаться на демо"}
+          {loading ? "Отправляем…" : "Записаться на консультацию"}
         </Button>
       </form>
     </GlassCard>
