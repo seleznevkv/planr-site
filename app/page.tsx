@@ -63,16 +63,17 @@ export default function HomePage() {
           <div className="min-w-0">
             <Reveal>
               <h1 className="max-w-xl text-[1.85rem] sm:text-4xl md:text-5xl lg:text-[3.1rem] font-extrabold leading-[1.15] sm:leading-[1.1] tracking-tight text-[var(--text-primary)]">
-                Проектная компания видит{" "}
-                <span className="text-gradient-glow text-gradient" data-text="прибыль">
-                  прибыль
+                Полный контроль{" "}
+                <span className="text-gradient-glow text-gradient" data-text="прибыли">
+                  прибыли
                 </span>{" "}
-                насквозь — от сметы до последнего акта
+                для проектных компаний — от сметы до закрывающего акта
               </h1>
             </Reveal>
             <Reveal delay={0.1}>
               <p className="mt-6 text-lg text-[var(--text-secondary)] leading-relaxed max-w-xl">
-                Одна система вместо четырёх и переписки: задачи, часы, документы, деньги.
+                Вы видите, что происходит с каждым проектом: работы, загрузка команды, часы,
+                затраты, документы и прибыль — в одной системе.
               </p>
             </Reveal>
             <Reveal delay={0.24}>
@@ -411,7 +412,6 @@ export default function HomePage() {
         <Reveal delay={0.1}>
           <p className="mt-8 text-center text-sm text-[var(--text-tertiary)] max-w-2xl mx-auto">{implementationNote}</p>
         </Reveal>
-        <Connector>Ответы есть. Осталось назвать цену.</Connector>
       </Section>
 
       {/* Блок 9 — Цены (поднято) */}
