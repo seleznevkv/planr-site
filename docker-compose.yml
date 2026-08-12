@@ -66,6 +66,32 @@ services:
       - "traefik.http.middlewares.rostpro-rf-cyr-redirect.redirectregex.replacement=https://rostpro.tech/$${1}"
       - "traefik.http.middlewares.rostpro-rf-cyr-redirect.redirectregex.permanent=true"
 
+  # rostpro-guide — интерактивный продающий гайд (Vite SPA + Express-сервер
+  # для /api/contact). Отдельный образ, отдельный поддомен, тот же принцип
+  # деплоя, что и у ui.
+  guide:
+    image: registry.planr.cloud/site/rostpro-guide-ui:1.0.0
+    mem_limit: 256m
+    environment:
+      # Те же значения, что у ui, — чтобы заявки с гайда и с сайта уходили
+      # на один и тот же адрес.
+      - SMTP_HOST=smtp.mail.ru
+      - SMTP_PORT=465
+      - SMTP_SECURE=true
+      - SMTP_USER=info@rostpro.com
+      - SMTP_PASS=
+      - CONTACT_EMAIL_TO=office@rostpro.com
+    networks:
+      - site_default
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=site_default"
+      - "traefik.http.routers.rostpro-guide-ui.rule=Host(`guide.rostpro.tech`)"
+      - "traefik.http.routers.rostpro-guide-ui.entrypoints=websecure"
+      - "traefik.http.routers.rostpro-guide-ui.tls.certresolver=myresolver"
+      - "traefik.http.services.rostpro-guide-ui.loadbalancer.server.port=80"
+      - "traefik.http.routers.rostpro-guide-ui.middlewares=traefik-compress"
+
 networks:
   site_default:
     external: true

@@ -1,4 +1,9 @@
+import express from 'express'
 import nodemailer from 'nodemailer'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const HTML_ESCAPES = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }
 const EMAIL_RE = /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]+$/
@@ -59,12 +64,10 @@ function welcomeEmail(name) {
   return { subject: 'Ответ на заявку на демонстрацию в РостПро', html }
 }
 
-export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    res.status(405).json({ error: 'Method not allowed' })
-    return
-  }
+const app = express()
+app.use(express.json())
 
+app.post('/api/contact', async (req, res) => {
   const body = req.body || {}
   const name = typeof body.name === 'string' ? body.name.trim() : ''
   const phone = typeof body.phone === 'string' ? body.phone.trim() : ''
@@ -135,4 +138,14 @@ export default async function handler(req, res) {
   }
 
   res.status(200).json({ ok: true })
-}
+})
+
+app.use(express.static(path.join(__dirname, 'dist')))
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'))
+})
+
+const port = process.env.PORT || 80
+app.listen(port, () => {
+  console.log(`rostpro-guide listening on :${port}`)
+})

@@ -4,6 +4,9 @@ node_modules
 out
 build
 
+# отдельное приложение со своим Dockerfile — не часть сборки сайта
+rostpro-guide
+
 # git и IDE
 .git
 .gitignore
