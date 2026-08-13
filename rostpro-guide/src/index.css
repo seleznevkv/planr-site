@@ -642,6 +642,46 @@ blockquote cite {
   font-size: 1.05rem;
 }
 
+.step-trust {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 20px 24px;
+  background: color-mix(in srgb, var(--role-color, var(--brand-blue)) 10%, var(--glass-bg));
+  border: 1px solid color-mix(in srgb, var(--role-color, var(--brand-blue)) 35%, var(--glass-border-soft));
+  border-radius: 16px;
+  backdrop-filter: blur(var(--blur-card-soft));
+  -webkit-backdrop-filter: blur(var(--blur-card-soft));
+}
+
+.step-trust__badge {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--role-color, var(--brand-blue));
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.step-trust__heading {
+  margin: 0 0 6px;
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--text-primary);
+}
+
+.step-trust__text {
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-size: 0.98rem;
+}
+
 .step-feature h2 {
   font-size: 1.5rem;
   font-weight: 800;
@@ -703,6 +743,9 @@ blockquote cite {
   display: block;
   width: 100%;
   height: auto;
+  aspect-ratio: 16 / 9;
+  background: var(--glass-bg-soft);
+  object-fit: cover;
 }
 
 .shot-zoom__hint {

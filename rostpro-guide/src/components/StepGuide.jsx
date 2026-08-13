@@ -59,6 +59,17 @@ function StepContent({ step, onImageClick, onOpenContact }) {
         </div>
       )
 
+    case 'trust':
+      return (
+        <div className="step-trust">
+          <span className="step-trust__badge">✓</span>
+          <div>
+            <p className="step-trust__heading">{step.heading}</p>
+            <p className="step-trust__text">{step.text}</p>
+          </div>
+        </div>
+      )
+
     case 'feature':
       return (
         <div className="step-feature">
