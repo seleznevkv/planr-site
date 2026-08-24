@@ -5,89 +5,92 @@ import GlassCard from "@/components/ui/GlassCard";
 import Button from "@/components/ui/Button";
 import Reveal from "@/components/ui/Reveal";
 import ScreenshotFrame from "@/components/graphics/ScreenshotFrame";
-import ExpandableGrid from "@/components/ui/ExpandableGrid";
 import ContactForm from "@/components/contact/ContactForm";
 import RoiCalculator from "@/components/pricing/RoiCalculator";
 import PricingPlans from "@/components/pricing/PricingPlans";
 import {
   industryTypes,
-  businessMetrics,
   roles,
   featuresShort,
-  problemQuotes,
-  systemShowcase,
   objections,
-  comparisonTable,
   trustPoints,
-  aboutStatementLead,
-  aboutStatementBody,
-  implementationSupport,
-  implementationNote,
-  implementationDurationNote,
   pricingCaption,
 } from "@/lib/content";
-import { IconArrowRight, IconCheck, IconAndroid, IconApple } from "@/components/icons";
-import { cn } from "@/lib/utils";
+import { IconArrowRight, IconAndroid, IconApple } from "@/components/icons";
 
 export const metadata: Metadata = {
-  title: "РостПро — контролируйте прибыльность каждого проекта",
+  title: "РостПро — единая платформа для управления проектами, ресурсами и экономикой",
   description:
-    "РостПро — система управления проектным бизнесом: автоматически связывает задачи, табели учёта времени, подрядчиков и финансовые показатели, показывая прибыльность каждого этапа в реальном времени.",
+    "РостПро связывает задачи, фактические трудозатраты, расходы, ресурсы, подрядчиков и документы — чтобы руководитель видел, что происходит с проектами и как это отражается на их экономике.",
   alternates: { canonical: "/" },
 };
 
-const differentiation = featuresShort.filter((f) => f.badge);
+const readyIndustries = industryTypes.filter((ind) => !ind.comingSoon);
 
-const featuredQuote = problemQuotes.find((q) => q.quote.startsWith("А ведь с этих денег"))!;
-const restQuotes = problemQuotes.filter((q) => q !== featuredQuote);
+const problemCards = [
+  {
+    title: "100% загрузки ≠ 100% прибыли",
+    text: "Заполненная команда сама по себе не говорит о том, насколько эффективно работает проект.",
+  },
+  {
+    title: "Проблемы становятся видны поздно",
+    text: "Если данные приходится собирать вручную, отклонение можно заметить уже после того, как на него можно повлиять.",
+  },
+  {
+    title: "Решения принимаются без полной картины",
+    text: "Когда задачи, трудозатраты и деньги находятся в разных местах, руководителю приходится собирать картину самостоятельно.",
+  },
+];
 
-function Connector({ children }: { children: string }) {
-  return (
-    <Reveal>
-      <div className="mt-16 flex flex-col items-center gap-4">
-        <span className="w-10 h-[3px] rounded-full bg-[var(--color-brand-blue)]/50" />
-        <p className="text-center text-lg sm:text-xl font-medium text-[var(--text-primary)] max-w-2xl leading-snug">
-          {children}
-        </p>
-      </div>
-    </Reveal>
-  );
-}
+const planFactSteps = [
+  { title: "План", text: "Что должно произойти и сколько проект должен стоить." },
+  { title: "Факт", text: "Сколько времени и ресурсов уже использовано." },
+  { title: "Отклонение", text: "Где фактические показатели расходятся с планом." },
+  { title: "Экономика", text: "Как изменения отражаются на себестоимости и финансовом результате." },
+];
+
+const excelSeparately = ["план — отдельно", "часы — отдельно", "задачи — отдельно", "деньги — отдельно"];
 
 export default function HomePage() {
   return (
     <>
-      {/* Блок 1 — Первый экран */}
+      {/* Hero */}
       <Section size="lg" className="pt-8 sm:pt-12">
         <div className="grid lg:grid-cols-[1.05fr_1fr] gap-14 items-center">
           <div className="min-w-0">
             <Reveal>
-              <h1 className="max-w-xl text-[1.85rem] sm:text-4xl md:text-5xl lg:text-[3.1rem] font-extrabold leading-[1.15] sm:leading-[1.1] tracking-tight text-[var(--text-primary)]">
-                Полный контроль{" "}
-                <span className="text-gradient-glow text-gradient" data-text="прибыли">
-                  прибыли
+              <span className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full glass text-xs font-semibold text-[var(--color-brand-blue)] uppercase tracking-wide">
+                <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-brand-blue)]" />
+                Финансовая прозрачность проектов
+              </span>
+            </Reveal>
+            <Reveal delay={0.08}>
+              <h1 className="mt-7 max-w-xl text-[1.85rem] sm:text-4xl md:text-5xl lg:text-[3.1rem] font-extrabold leading-[1.15] sm:leading-[1.1] tracking-tight text-[var(--text-primary)]">
+                Единая платформа для управления проектами, ресурсами и{" "}
+                <span className="text-gradient-glow text-gradient" data-text="экономикой">
+                  экономикой
                 </span>{" "}
-                для проектных компаний — от сметы до закрывающего акта
+                проектной компании
               </h1>
             </Reveal>
-            <Reveal delay={0.1}>
+            <Reveal delay={0.16}>
               <p className="mt-6 text-lg text-[var(--text-secondary)] leading-relaxed max-w-xl">
-                Вы видите, что происходит с каждым проектом: работы, загрузка команды, часы,
-                затраты, документы и прибыль — в одной системе.
+                РостПро связывает задачи, фактические трудозатраты, расходы, ресурсы, подрядчиков и
+                документы — чтобы руководитель видел, что происходит с проектами и как это
+                отражается на их экономике.
               </p>
             </Reveal>
             <Reveal delay={0.24}>
-              <div className="mt-7 flex flex-wrap items-center gap-4">
+              <div className="mt-9 flex flex-wrap items-center gap-4">
                 <Button href="#contact-form" size="lg" icon={<IconArrowRight className="w-4 h-4" />}>
                   Записаться на консультацию
                 </Button>
-                <Button href="#sebestoimost" size="lg" variant="secondary">
-                  Посмотреть, как считается себестоимость
+                <Button href="#features" size="lg" variant="secondary">
+                  Посмотреть, как работает РостПро
                 </Button>
               </div>
               <p className="mt-4 text-sm text-[var(--text-tertiary)] max-w-md">
-                60 дней для тестов · Внедрение — от нескольких дней до нескольких недель в
-                зависимости от команды · Помощь при запуске бесплатно
+                Для архитектурных бюро, проектных институтов, инжиниринговых компаний и дизайн-студий
               </p>
             </Reveal>
           </div>
@@ -113,181 +116,141 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* Блок 2 — Так выглядит проектный бизнес без системы: одна цитата крупно + сетка */}
-      <Section size="sm">
-        <SectionHeading title="Так выглядит проектный бизнес без системы" />
-        <Reveal>
-          <blockquote className="mt-14 max-w-3xl mx-auto text-center">
-            <p className="text-2xl sm:text-3xl font-bold text-[var(--text-primary)] leading-snug">
-              «{featuredQuote.quote}»
-            </p>
-            <p className="mt-4 text-sm text-[var(--text-tertiary)]">— {featuredQuote.source}</p>
-            <p className="mt-5 text-base text-[var(--text-secondary)] leading-relaxed">
-              {featuredQuote.interpretation}
-            </p>
-          </blockquote>
-        </Reveal>
-        <div className="mt-12 grid sm:grid-cols-3 gap-6">
-          {restQuotes.map((q, i) => (
-            <Reveal key={q.quote} delay={i * 0.07}>
-              <GlassCard hover={false} className="h-full">
-                <p className="text-sm font-semibold text-[var(--text-primary)] leading-relaxed">
-                  «{q.quote}»
-                </p>
-                <p className="mt-3 text-xs text-[var(--text-tertiary)]">— {q.source}</p>
-                <p className="mt-3 text-sm text-[var(--text-secondary)] leading-relaxed">
-                  {q.interpretation}
-                </p>
+      {/* Problem */}
+      <Section>
+        <SectionHeading
+          title="Загрузка 100%, а прибыли не видно"
+          description="Проектная компания может быть загружена под завязку — и при этом терять деньги. Проблема часто не на поверхности: задачи ведутся отдельно, часы — в таблицах, документы — в почте, финансовые данные — в другой системе. В результате руководитель видит отдельные показатели, но не всегда видит общую картину проекта."
+        />
+        <div className="mt-14 grid sm:grid-cols-3 gap-6">
+          {problemCards.map((p, i) => (
+            <Reveal key={p.title} delay={i * 0.08}>
+              <GlassCard className="h-full">
+                <h3 className="text-base font-bold text-[var(--text-primary)] leading-snug">{p.title}</h3>
+                <p className="mt-2 text-sm text-[var(--text-secondary)] leading-relaxed">{p.text}</p>
               </GlassCard>
             </Reveal>
           ))}
         </div>
-        <Connector>Так работает большинство проектных компаний. Вопрос в том, сколько это стоит именно вашей.</Connector>
       </Section>
 
-      {/* Блок 3 — Для кого это: отрасли + роли (объединено, поднято) */}
+      {/* One system */}
       <Section size="sm">
-        <SectionHeading title="Для кого это" description="Компании, которые уже ведут проекты в РостПро, и роли, для которых он решает конкретную задачу." />
-        <Reveal delay={0.1}>
-          <p className="mt-10 text-xs font-semibold uppercase tracking-wide text-[var(--color-brand-blue)]">Отрасли</p>
-          <div className="mt-4">
-            <ExpandableGrid
-              visibleCount={6}
-              gridClassName="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3"
-              items={industryTypes.map((ind) => (
-                <div
-                  key={ind.label}
-                  className={cn(
-                    "relative rounded-2xl px-3 py-5 flex flex-col items-center text-center gap-2.5 transition-all duration-300",
-                    ind.comingSoon ? "glass-soft opacity-70" : "glass hover:-translate-y-1"
-                  )}
-                >
-                  {ind.comingSoon && (
-                    <div className="group/tip absolute top-2 right-2">
-                      <span
-                        tabIndex={0}
-                        title={ind.note}
-                        className="w-4 h-4 rounded-full icon-chip flex items-center justify-center text-[9px] font-bold text-[var(--text-tertiary)] cursor-help outline-none"
-                      >
-                        ?
-                      </span>
-                      <div className="pointer-events-none absolute right-0 top-full mt-2 w-52 rounded-xl glass-opaque p-3 text-[11px] leading-snug text-[var(--text-secondary)] text-left opacity-0 scale-95 origin-top-right transition-all duration-200 group-hover/tip:opacity-100 group-hover/tip:scale-100 group-focus-within/tip:opacity-100 group-focus-within/tip:scale-100 z-20">
-                        {ind.note}
-                      </div>
-                    </div>
-                  )}
-                  <span
-                    className={cn(
-                      "w-9 h-9 rounded-xl icon-chip flex items-center justify-center",
-                      ind.comingSoon ? "text-[var(--text-tertiary)]" : "text-[var(--color-brand-blue)]"
-                    )}
-                  >
-                    <ind.icon className="w-4.5 h-4.5" />
-                  </span>
-                  <span
-                    className={cn(
-                      "text-xs font-medium leading-snug",
-                      ind.comingSoon ? "text-[var(--text-tertiary)]" : "text-[var(--text-secondary)]"
-                    )}
-                  >
-                    {ind.label}
-                  </span>
-                  {ind.comingSoon && (
-                    <span className="text-[10px] font-bold uppercase tracking-wide text-[var(--text-tertiary)]">
-                      Скоро
-                    </span>
-                  )}
-                </div>
-              ))}
-            />
-          </div>
+        <Reveal>
+          <GlassCard variant="strong" padding="lg" hover={false} className="text-center max-w-3xl mx-auto">
+            <h2 className="text-3xl font-extrabold tracking-tight text-[var(--text-primary)]">
+              Одна система — единая картина проекта
+            </h2>
+            <p className="mt-5 text-base text-[var(--text-primary)] font-medium leading-relaxed">
+              РостПро связывает задачи, время, ресурсы и финансы в одной системе.
+            </p>
+            <p className="mt-3 text-sm text-[var(--text-secondary)] leading-relaxed">
+              Сотрудники фиксируют фактически затраченное время. Задачи и этапы связаны с проектом.
+              Затраты учитываются в его экономике. В результате данные складываются в одну картину,
+              а не в несколько разрозненных отчётов.
+            </p>
+            <div className="mt-7">
+              <Button href="#features" size="lg">
+                Посмотреть РостПро в работе
+              </Button>
+            </div>
+          </GlassCard>
         </Reveal>
-        <div className="mt-14 flex items-center gap-4">
-          <span className="h-px flex-1 bg-[var(--glass-border-soft)]" />
-          <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-brand-blue)]">Роли</p>
-          <span className="h-px flex-1 bg-[var(--glass-border-soft)]" />
-        </div>
-        <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {roles.map((r, i) => (
-            <Reveal key={r.name} delay={i * 0.07}>
-              <GlassCard className="h-full flex flex-col items-center text-center">
-                <span className="w-14 h-14 rounded-full icon-chip flex items-center justify-center text-base font-bold text-[var(--color-brand-blue)]">
-                  {r.initials}
+      </Section>
+
+      {/* Features */}
+      <Section size="sm" id="features">
+        <SectionHeading title="Всё, что нужно для управления проектом" />
+        <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {featuresShort.map((f, i) => (
+            <Reveal key={f.slug} delay={i * 0.06}>
+              <GlassCard className="h-full">
+                <span className="w-11 h-11 rounded-xl icon-chip flex items-center justify-center text-[var(--color-brand-blue)]">
+                  <f.icon className="w-5 h-5" />
                 </span>
-                <h3 className="mt-4 text-base font-bold text-[var(--text-primary)]">{r.name}</h3>
+                <h3 className="mt-4 text-base font-bold text-[var(--text-primary)] leading-snug">{f.title}</h3>
+                <p className="mt-2 text-sm text-[var(--text-secondary)] leading-relaxed">{f.text}</p>
+              </GlassCard>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      {/* Plan -> Fact -> Deviation -> Economy */}
+      <Section size="sm">
+        <SectionHeading title="От плана — к фактической экономике проекта" />
+        <div className="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {planFactSteps.map((s, i) => (
+            <Reveal key={s.title} delay={i * 0.08}>
+              <GlassCard hover={false} className="h-full text-center">
+                <span className="mx-auto w-7 h-7 rounded-full icon-chip flex items-center justify-center text-xs font-bold text-[var(--color-brand-blue)]">
+                  {i + 1}
+                </span>
+                <h3 className="mt-3 text-base font-bold text-[var(--text-primary)]">{s.title}</h3>
+                <p className="mt-2 text-xs text-[var(--text-secondary)] leading-relaxed">{s.text}</p>
+              </GlassCard>
+            </Reveal>
+          ))}
+        </div>
+        <Reveal delay={0.2}>
+          <p className="mt-8 text-center text-sm font-medium text-[var(--text-primary)]">
+            Финансовая картина становится точнее по мере накопления фактических данных.
+          </p>
+        </Reveal>
+      </Section>
+
+      {/* Roles */}
+      <Section id="roles">
+        <SectionHeading
+          title="Одна система. Разные задачи для разных руководителей"
+          description="РостПро собирает данные проекта в одном месте, но каждый руководитель использует их для своей зоны ответственности."
+        />
+        <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {roles.map((r, i) => (
+            <Reveal key={r.kicker} delay={i * 0.07}>
+              <GlassCard className="h-full">
+                <p className="text-xs font-bold uppercase tracking-wide text-[var(--color-brand-blue)]">{r.kicker}</p>
+                <h3 className="mt-2 text-base font-bold text-[var(--text-primary)] leading-snug">{r.title}</h3>
                 <p className="mt-2 text-sm text-[var(--text-secondary)] leading-relaxed">{r.text}</p>
               </GlassCard>
             </Reveal>
           ))}
         </div>
-        <Connector>Что именно вы увидите, когда всё это окажется в одной системе.</Connector>
       </Section>
 
-      {/* Блок 4 — Три вещи, которые вы увидите (слито с показателями бизнеса) */}
+      {/* Why companies outgrow Excel */}
       <Section size="sm">
-        <SectionHeading eyebrow="Что показывает система" title="Три вещи, которые вы увидите сразу" align="left" />
-        <div className="mt-10 grid sm:grid-cols-3 gap-6">
-          {systemShowcase.map((s, i) => (
-            <Reveal key={s.slug} delay={i * 0.08}>
-              <GlassCard id={s.slug} className="h-full scroll-mt-28">
-                <span className="w-12 h-12 rounded-2xl icon-chip flex items-center justify-center text-[var(--color-brand-blue)]">
-                  <s.icon className="w-6 h-6" />
-                </span>
-                <h3 className="mt-5 text-base font-bold text-[var(--text-primary)] leading-snug">{s.title}</h3>
-                <p className="mt-2 text-sm text-[var(--text-secondary)] leading-relaxed">{s.text}</p>
-              </GlassCard>
-            </Reveal>
-          ))}
-        </div>
-
-        <div className="mt-10 grid lg:grid-cols-[1fr_1.1fr] gap-8 items-center">
-          <Reveal>
-            <GlassCard variant="strong" padding="md" hover={false} className="overflow-hidden">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/illustrations/power-3.svg"
-                alt="Аналитика по срокам, финансированию и загрузке команды в РостПро"
-                className="w-full h-auto"
-              />
-            </GlassCard>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <GlassCard variant="strong" padding="none" hover={false}>
-              {businessMetrics.map((m) => (
-                <div
-                  key={m.label}
-                  className="flex items-center justify-between gap-4 px-5 py-4 border-b border-[var(--glass-border-soft)] last:border-0"
-                >
-                  <span className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.4"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="shrink-0 text-[var(--text-tertiary)]"
-                    >
-                      <path d="m6 9 6 6 6-6" />
-                    </svg>
-                    {m.label}
-                  </span>
-                  <span className="text-base font-bold text-[var(--text-primary)]">{m.value}</span>
-                </div>
-              ))}
-            </GlassCard>
-          </Reveal>
-        </div>
-        <p className="mt-4 text-center text-xs text-[var(--text-tertiary)]">
-          Пример данных для демонстрации возможностей платформы — цифры конкретной компании мы не публикуем.
-        </p>
-        <Connector>Пока этого не видно, деньги теряются молча. Посчитайте, сколько именно.</Connector>
+        <SectionHeading
+          title="Почему проектные компании перерастают Excel"
+          description="Excel удобен, пока проектов немного. Когда проектов становится больше, появляются разные таблицы, версии файлов и ручная сверка."
+        />
+        <Reveal delay={0.1}>
+          <div className="mt-10 flex flex-wrap justify-center gap-3">
+            {excelSeparately.map((s) => (
+              <span key={s} className="glass-soft rounded-full px-4 py-2.5 text-sm font-semibold text-[var(--text-secondary)]">
+                {s}
+              </span>
+            ))}
+          </div>
+          <p className="mt-6 text-center text-sm italic text-[var(--text-tertiary)]">Цифры есть, но единой картины нет.</p>
+        </Reveal>
+        <Reveal delay={0.15}>
+          <GlassCard variant="strong" padding="lg" hover={false} className="mt-10 text-center max-w-3xl mx-auto">
+            <h3 className="text-xl font-bold text-[var(--text-primary)]">РостПро связывает эти данные</h3>
+            <p className="mt-3 text-sm font-bold text-[var(--text-primary)]">
+              Задачи → время → ресурсы → затраты → документы → экономика проекта
+            </p>
+            <p className="mt-5 text-sm text-[var(--text-secondary)] leading-relaxed">
+              РостПро не требует отказываться от всей существующей ИТ-инфраструктуры. Он закрывает
+              контур управления проектной работой и экономикой там, где отдельных таблиц и систем уже
+              недостаточно.
+            </p>
+          </GlassCard>
+        </Reveal>
       </Section>
 
-      {/* Блок 5 — Калькулятор, с CTA сразу под результатом */}
-      <Section size="sm">
+      {/* ROI calculator */}
+      <Section size="sm" id="calculator">
         <SectionHeading
           eyebrow="Окупаемость"
           title="Сколько вы теряете на ручной отчётности сейчас"
@@ -304,76 +267,9 @@ export default function HomePage() {
             </Button>
           </div>
         </Reveal>
-        <Connector>Эти деньги не исчезают — их просто не видно. Вот где они лежат сейчас.</Connector>
       </Section>
 
-      {/* Блок 6 — Сейчас у вас, скорее всего, так */}
-      <Section size="sm">
-        <SectionHeading title="Сейчас у вас, скорее всего, так" align="left" />
-        <Reveal delay={0.1}>
-          <div className="mt-10 overflow-x-auto">
-            <GlassCard hover={false} padding="none" className="min-w-[560px] overflow-hidden">
-              <table className="w-full text-sm border-separate border-spacing-0">
-                <thead>
-                  <tr className="border-b border-[var(--glass-border-soft)]">
-                    <th className="text-left font-semibold text-[var(--text-primary)] px-6 py-4 rounded-tl-3xl"></th>
-                    {comparisonTable.columns.map((col, i) => (
-                      <th
-                        key={col}
-                        className={cn(
-                          "text-center font-semibold px-6 py-4",
-                          i === comparisonTable.columns.length - 1
-                            ? "text-[var(--color-brand-blue)] bg-[var(--color-brand-blue)]/[0.06] rounded-tr-3xl"
-                            : "text-[var(--text-primary)]"
-                        )}
-                      >
-                        {col}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {comparisonTable.rows.map((row, rowIndex) => (
-                    <tr key={row.feature} className="border-b border-[var(--glass-border-soft)] last:border-0">
-                      <td
-                        className={cn(
-                          "px-6 py-4 font-medium text-[var(--text-primary)]",
-                          rowIndex === comparisonTable.rows.length - 1 && "rounded-bl-3xl"
-                        )}
-                      >
-                        {row.feature}
-                      </td>
-                      {row.values.map((v, i) => (
-                        <td
-                          key={i}
-                          className={cn(
-                            "text-center px-6 py-4",
-                            i === row.values.length - 1 && "bg-[var(--color-brand-blue)]/[0.06]",
-                            i === row.values.length - 1 &&
-                              rowIndex === comparisonTable.rows.length - 1 &&
-                              "rounded-br-3xl"
-                          )}
-                        >
-                          {v === true ? (
-                            <IconCheck className="w-4 h-4 mx-auto text-[var(--color-brand-blue)]" />
-                          ) : v === false ? (
-                            <span className="text-[var(--text-tertiary)]">—</span>
-                          ) : (
-                            <span className="text-[var(--text-tertiary)] text-xs">{v}</span>
-                          )}
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </GlassCard>
-          </div>
-        </Reveal>
-        {/* Блок 7 «Что изменится в работе» — ждёт решения, см. чат */}
-      </Section>
-
-      {/* Блок 8 — Вопросы перед внедрением + помощь (слито) */}
+      {/* Objections */}
       <Section size="sm">
         <SectionHeading title="Вопросы, которые обычно задают перед внедрением" align="left" />
         <div className="mt-10 grid sm:grid-cols-2 gap-6">
@@ -386,35 +282,9 @@ export default function HomePage() {
             </Reveal>
           ))}
         </div>
-
-        <Reveal delay={0.1}>
-          <p className="mt-14 text-center text-xs font-semibold uppercase tracking-wide text-[var(--color-brand-blue)]">
-            Внедрение
-          </p>
-          <h3 className="mt-2 text-center text-2xl font-extrabold tracking-tight text-[var(--text-primary)]">
-            Помощь с внедрением — бесплатно
-          </h3>
-          <p className="mt-2 text-center text-sm text-[var(--text-tertiary)] max-w-2xl mx-auto">{implementationDurationNote}</p>
-        </Reveal>
-        <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {implementationSupport.map((s, i) => (
-            <Reveal key={s.title} delay={i * 0.08}>
-              <GlassCard className="h-full">
-                <span className="w-12 h-12 rounded-2xl icon-chip flex items-center justify-center text-[var(--color-brand-blue)]">
-                  <s.icon className="w-6 h-6" />
-                </span>
-                <h3 className="mt-5 text-base font-bold text-[var(--text-primary)] leading-snug">{s.title}</h3>
-                <p className="mt-2 text-sm text-[var(--text-secondary)] leading-relaxed">{s.text}</p>
-              </GlassCard>
-            </Reveal>
-          ))}
-        </div>
-        <Reveal delay={0.1}>
-          <p className="mt-8 text-center text-sm text-[var(--text-tertiary)] max-w-2xl mx-auto">{implementationNote}</p>
-        </Reveal>
       </Section>
 
-      {/* Блок 9 — Цены (поднято) */}
+      {/* Pricing */}
       <Section size="sm" id="pricing">
         <SectionHeading
           eyebrow="Тарифы"
@@ -431,50 +301,10 @@ export default function HomePage() {
           <p className="mt-8 max-w-2xl mx-auto text-center text-sm text-[var(--text-secondary)] leading-relaxed">
             {pricingCaption}
           </p>
-          <div className="mt-6 flex justify-center">
-            <Button href="/pricing" variant="secondary">
-              Смотреть все тарифы и вопросы
-            </Button>
-          </div>
         </Reveal>
       </Section>
 
-      {/* Блок 10 — Манифест (опущен, усилен визуально) */}
-      <Section size="lg">
-        <Reveal>
-          <p className="max-w-3xl mx-auto text-center text-3xl sm:text-4xl font-bold text-[var(--text-primary)] leading-snug">
-            {aboutStatementLead}
-          </p>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <p className="mt-8 max-w-xl mx-auto text-center text-base text-[var(--text-secondary)] leading-relaxed">
-            {aboutStatementBody}
-          </p>
-        </Reveal>
-      </Section>
-
-      {/* Блок 11 — Преимущества над конкурентами (опущено; название — см. чат) */}
-      <Section size="sm">
-        <SectionHeading title="Преимущества над конкурентами" align="left" />
-        <div className="mt-10 grid sm:grid-cols-3 gap-6">
-          {differentiation.map((f, i) => (
-            <Reveal key={f.slug} delay={i * 0.06}>
-              <GlassCard className="h-full">
-                <span className="inline-block mb-4 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide bg-emerald-500/10 text-emerald-500">
-                  {f.badge}
-                </span>
-                <span className="w-11 h-11 rounded-xl icon-chip flex items-center justify-center text-[var(--color-brand-blue)]">
-                  <f.icon className="w-5 h-5" />
-                </span>
-                <h3 className="mt-4 text-base font-bold text-[var(--text-primary)] leading-snug">{f.title}</h3>
-                <p className="mt-2 text-sm text-[var(--text-secondary)] leading-relaxed">{f.text}</p>
-              </GlassCard>
-            </Reveal>
-          ))}
-        </div>
-      </Section>
-
-      {/* Блок 12 — Надёжность */}
+      {/* Trust */}
       <Section>
         <SectionHeading
           title="Надёжность корпоративного уровня"
@@ -494,18 +324,60 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* Блок 13 — финальный CTA + форма */}
+      {/* Industries */}
+      <Section size="sm" id="industries">
+        <SectionHeading title="Для проектных компаний" />
+        <Reveal delay={0.1}>
+          <p className="mt-10 text-center text-lg font-semibold text-[var(--text-secondary)]">
+            {readyIndustries.map((ind, i) => (
+              <span key={ind.label}>
+                {ind.label}
+                {i < readyIndustries.length - 1 && <span className="mx-2 text-[var(--text-tertiary)]">·</span>}
+              </span>
+            ))}
+          </p>
+        </Reveal>
+      </Section>
+
+      {/* Connectedness statement */}
+      <Section>
+        <Reveal>
+          <p className="max-w-3xl mx-auto text-center text-2xl sm:text-3xl font-bold text-[var(--text-primary)] leading-snug">
+            Важна не отдельная функция. Важна связь между ними.
+          </p>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <p className="mt-6 max-w-xl mx-auto text-center text-base text-[var(--text-secondary)] leading-relaxed">
+            Задача сама по себе не показывает экономику. Табель сам по себе не показывает состояние
+            проекта. Финансовый отчёт сам по себе не объясняет, что происходит на этапе
+            проектирования.
+          </p>
+        </Reveal>
+        <Reveal delay={0.16}>
+          <p className="mt-5 max-w-xl mx-auto text-center text-base font-bold text-[var(--text-primary)] leading-relaxed">
+            Ценность появляется, когда эти данные связаны с одним проектом.
+          </p>
+        </Reveal>
+        <Reveal delay={0.22}>
+          <p className="mt-5 max-w-xl mx-auto text-center text-base text-[var(--text-secondary)] leading-relaxed">
+            В РостПро задача связана с временем, время — с проектом, проект — с затратами, затраты
+            — с его экономикой.
+          </p>
+        </Reveal>
+      </Section>
+
+      {/* Final CTA + form */}
       <Section id="contact-form">
         <Reveal>
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[var(--text-primary)]">
-                Посмотрите на своих проектах
+                Посмотрите РостПро на ваших проектах
               </h2>
               <p className="mt-4 text-[var(--text-secondary)] max-w-xl">
-                Ответим на вопросы и посчитаем себестоимость по вашему договору. Единая
-                платформа для проектов, ресурсов, документов, финансов и аналитики — для любой
-                проектной компании.
+                Покажем систему на сценарии проектной компании: как устроен проект, как фиксируются
+                трудозатраты, как формируется план-факт, как руководители видят данные, как работают
+                документы и подрядчики.
               </p>
             </div>
             <ContactForm />
