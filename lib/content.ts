@@ -429,7 +429,7 @@ export const featuresDetailed: FeatureDetail[] = [
       "Срезы по срокам, бюджету, подрядчикам и команде",
       "Экспорт отчётов для инвесторов и партнёров",
     ],
-    image: "/screenshots/dashboard-v2.png",
+    image: "/screenshots/dashboard-v3.png",
     imageAlt: "Дашборд организации в РостПро: статусы, финансы, загруженность ГИПов",
   },
   {
