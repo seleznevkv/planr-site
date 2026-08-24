@@ -179,17 +179,19 @@ export default function HomePage() {
       {/* Plan -> Fact -> Deviation -> Economy */}
       <Section size="sm">
         <SectionHeading title="От плана — к фактической экономике проекта" />
-        <div className="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="mt-10 flex flex-col lg:flex-row items-stretch gap-4">
           {planFactSteps.map((s, i) => (
-            <Reveal key={s.title} delay={i * 0.08}>
-              <GlassCard hover={false} className="h-full text-center">
-                <span className="mx-auto w-7 h-7 rounded-full icon-chip flex items-center justify-center text-xs font-bold text-[var(--color-brand-blue)]">
-                  {i + 1}
-                </span>
-                <h3 className="mt-3 text-base font-bold text-[var(--text-primary)]">{s.title}</h3>
-                <p className="mt-2 text-xs text-[var(--text-secondary)] leading-relaxed">{s.text}</p>
-              </GlassCard>
-            </Reveal>
+            <div key={s.title} className="flex flex-col lg:flex-row items-stretch gap-4 flex-1 min-w-0">
+              <Reveal delay={i * 0.08} className="flex-1 min-w-0">
+                <GlassCard hover={false} className="h-full text-center">
+                  <h3 className="text-base font-bold text-[var(--text-primary)]">{s.title}</h3>
+                  <p className="mt-2 text-xs text-[var(--text-secondary)] leading-relaxed">{s.text}</p>
+                </GlassCard>
+              </Reveal>
+              {i < planFactSteps.length - 1 && (
+                <IconArrowRight className="hidden lg:block w-4 h-4 mt-8 text-[var(--color-brand-blue)]/60 shrink-0 self-start" />
+              )}
+            </div>
           ))}
         </div>
         <Reveal delay={0.2}>
