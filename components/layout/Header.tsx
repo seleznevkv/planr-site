@@ -9,6 +9,7 @@ import Button from "@/components/ui/Button";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import VersionBadge from "@/components/layout/VersionBadge";
 import { navItems, type NavItem } from "@/lib/site";
+import type { ChangelogEntry } from "@/lib/changelog";
 import { cn } from "@/lib/utils";
 
 function matchesHref(href: string, pathname: string) {
@@ -20,7 +21,7 @@ function isItemActive(item: NavItem, pathname: string): boolean {
   return !!item.children?.some((c) => !c.external && matchesHref(c.href, pathname));
 }
 
-export default function Header() {
+export default function Header({ changelogEntries }: { changelogEntries: ChangelogEntry[] }) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -120,7 +121,7 @@ export default function Header() {
               the theme toggle, demo button and menu trigger — the version
               history is one tap away in the footer / mobile menu anyway. */}
           <div className="hidden lg:block">
-            <VersionBadge />
+            <VersionBadge entries={changelogEntries} />
           </div>
         </div>
 

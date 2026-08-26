@@ -3,7 +3,7 @@ import Section from "@/components/ui/Section";
 import GlassCard from "@/components/ui/GlassCard";
 import Reveal from "@/components/ui/Reveal";
 import ChangelogList from "@/components/changelog/ChangelogList";
-import { currentVersion } from "@/lib/changelog";
+import { getChangelog } from "@/lib/changelog";
 
 export const metadata: Metadata = {
   title: "История версий",
@@ -11,7 +11,10 @@ export const metadata: Metadata = {
   alternates: { canonical: "/changelog" },
 };
 
-export default function ChangelogPage() {
+export default async function ChangelogPage() {
+  const entries = await getChangelog();
+  const currentVersion = entries[0]?.version ?? "";
+
   return (
     <Section size="lg" className="pt-8 sm:pt-12">
       <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[var(--text-primary)]">
@@ -23,7 +26,7 @@ export default function ChangelogPage() {
 
       <Reveal className="mt-8 max-w-3xl">
         <GlassCard hover={false} padding="sm">
-          <ChangelogList className="px-1 py-1" />
+          <ChangelogList entries={entries} className="px-1 py-1" />
         </GlassCard>
       </Reveal>
     </Section>

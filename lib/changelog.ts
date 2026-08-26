@@ -1,12 +1,13 @@
 // Auto-generated from the internal CHANGELOG.md — do not hand-edit.
 // Regenerate with scripts/parse-changelog.mjs if the source changelog changes.
+// Used only as a fallback if the live feed below is unreachable.
 export type ChangelogEntry = {
   version: string;
-  date: string;
+  date?: string;
   changes: string[];
 };
 
-export const changelog: ChangelogEntry[] = [
+const fallbackChangelog: ChangelogEntry[] = [
   {
     "version": "26.7.16",
     "changes": [
@@ -1315,4 +1316,47 @@ export const changelog: ChangelogEntry[] = [
   }
 ];
 
-export const currentVersion = changelog[0]?.version ?? "";
+const LIVE_CHANGELOG_URL = "https://rost.rostpro.tech/api/noAuth/changelog";
+
+type LiveChangelogRelease = {
+  version: string;
+  markdown: string;
+};
+
+// Each release's changes arrive as a numbered markdown list, e.g.
+// "1. [Модуль] - что изменилось.\n2. ...". Split on the numbering rather
+// than plain newlines so a change note that happens to wrap lines stays intact.
+function parseReleaseChanges(markdown: string): string[] {
+  return markdown
+    .trim()
+    .split(/\n(?=\d+\.\s)/)
+    .map((chunk) => chunk.replace(/^\d+\.\s*/, "").trim())
+    .filter(Boolean);
+}
+
+async function fetchLiveChangelog(): Promise<ChangelogEntry[] | null> {
+  try {
+    const res = await fetch(LIVE_CHANGELOG_URL, {
+      signal: AbortSignal.timeout(5000),
+      next: { revalidate: 3600 },
+    });
+    if (!res.ok) return null;
+
+    const data = (await res.json()) as { releases?: LiveChangelogRelease[] };
+    if (!Array.isArray(data.releases) || data.releases.length === 0) return null;
+
+    return data.releases.map((release) => ({
+      version: release.version,
+      changes: parseReleaseChanges(release.markdown),
+    }));
+  } catch {
+    return null;
+  }
+}
+
+// The live feed has no per-release date, so consumers should treat
+// `date` as optional and only render it when present (fallback entries have it).
+export async function getChangelog(): Promise<ChangelogEntry[]> {
+  const live = await fetchLiveChangelog();
+  return live ?? fallbackChangelog;
+}

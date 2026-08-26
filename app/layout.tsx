@@ -7,6 +7,7 @@ import BackgroundScene from "@/components/layout/BackgroundScene";
 import CookieConsent from "@/components/analytics/CookieConsent";
 import { siteConfig, legalEntity } from "@/lib/site";
 import { pricingPlans } from "@/lib/content";
+import { getChangelog } from "@/lib/changelog";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -102,11 +103,13 @@ const softwareApplicationJsonLd = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const changelogEntries = await getChangelog();
+
   return (
     <html
       lang="ru"
@@ -131,7 +134,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col font-sans">
         <BackgroundScene />
-        <Header />
+        <Header changelogEntries={changelogEntries} />
         <main className="flex-1">{children}</main>
         <Footer />
         <CookieConsent />

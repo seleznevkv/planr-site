@@ -2,7 +2,7 @@ import Link from "next/link";
 import Logo from "@/components/Logo";
 import GlassCard from "@/components/ui/GlassCard";
 import Button from "@/components/ui/Button";
-import { navItems, siteConfig } from "@/lib/site";
+import { navItems, siteConfig, legalEntity } from "@/lib/site";
 
 const legalLinks = [
   { href: "/privacy", label: "Политика конфиденциальности" },
@@ -92,9 +92,15 @@ export default function Footer() {
           </div>
         </GlassCard>
 
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-2 mt-6 sm:mt-8 text-xs text-[var(--text-tertiary)] text-center">
-          <p>© {new Date().getFullYear()} РостПро. Все права защищены.</p>
-          <p>Сделано для проектного бизнеса, который ценит своё время.</p>
+        <div className="mt-6 sm:mt-8 text-center text-xs text-[var(--text-tertiary)]">
+          <p>
+            {legalEntity.shortName} · ИНН {legalEntity.inn} · КПП {legalEntity.kpp} · ОГРН{" "}
+            {legalEntity.ogrn} · {legalEntity.address}
+          </p>
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-2 mt-2">
+            <p>© {new Date().getFullYear()} РостПро. Все права защищены.</p>
+            <p>Сделано для проектного бизнеса, который ценит своё время.</p>
+          </div>
         </div>
       </div>
     </footer>

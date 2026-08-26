@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { changelog, currentVersion } from "@/lib/changelog";
+import type { ChangelogEntry } from "@/lib/changelog";
 import { cn } from "@/lib/utils";
 
 const dateFormatter = new Intl.DateTimeFormat("ru-RU", { day: "numeric", month: "long", year: "numeric" });
@@ -11,12 +11,13 @@ const dateFormatter = new Intl.DateTimeFormat("ru-RU", { day: "numeric", month: 
  * Accordion list of changelog entries — shared between the header's
  * VersionBadge popover and the standalone /changelog page.
  */
-export default function ChangelogList({ className }: { className?: string }) {
-  const [expanded, setExpanded] = useState<string | null>(currentVersion);
+export default function ChangelogList({ entries, className }: { entries: ChangelogEntry[]; className?: string }) {
+  const currentVersion = entries[0]?.version;
+  const [expanded, setExpanded] = useState<string | null>(currentVersion ?? null);
 
   return (
     <div className={className}>
-      {changelog.map((entry) => {
+      {entries.map((entry) => {
         const isOpen = expanded === entry.version;
         const isCurrent = entry.version === currentVersion;
         return (
@@ -33,9 +34,11 @@ export default function ChangelogList({ className }: { className?: string }) {
                     Текущая
                   </span>
                 )}
-                <span className="text-[11px] text-[var(--text-tertiary)]">
-                  {dateFormatter.format(new Date(entry.date))}
-                </span>
+                {entry.date && (
+                  <span className="text-[11px] text-[var(--text-tertiary)]">
+                    {dateFormatter.format(new Date(entry.date))}
+                  </span>
+                )}
               </span>
               <svg
                 width="12"

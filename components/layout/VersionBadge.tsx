@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { currentVersion } from "@/lib/changelog";
+import type { ChangelogEntry } from "@/lib/changelog";
 import ChangelogList from "@/components/changelog/ChangelogList";
 import { cn } from "@/lib/utils";
 
@@ -11,7 +11,8 @@ import { cn } from "@/lib/utils";
  * Click opens a changelog popover anchored right below it — the same
  * pattern most desktop/web apps use for "what's new" release notes.
  */
-export default function VersionBadge() {
+export default function VersionBadge({ entries }: { entries: ChangelogEntry[] }) {
+  const currentVersion = entries[0]?.version ?? "";
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
 
@@ -87,7 +88,7 @@ export default function VersionBadge() {
             </div>
 
             <div className="max-h-[60vh] overflow-y-auto no-scrollbar px-2 py-2">
-              <ChangelogList />
+              <ChangelogList entries={entries} />
             </div>
             <a
               href="/changelog"
