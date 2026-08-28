@@ -19,9 +19,9 @@ import {
 import { IconArrowRight, IconAndroid, IconApple } from "@/components/icons";
 
 export const metadata: Metadata = {
-  title: "РостПро — единая платформа для управления проектами, ресурсами и экономикой",
+  title: "РостПро — система управления проектной организацией: проекты, ресурсы, экономика",
   description:
-    "РостПро связывает задачи, фактические трудозатраты, расходы, ресурсы, подрядчиков и документы — чтобы руководитель видел, что происходит с проектами и как это отражается на их экономике.",
+    "РостПро — система для автоматизации проектного управления: связывает задачи, фактические трудозатраты, расходы, ресурсы, подрядчиков и документы, чтобы руководитель видел, что происходит с проектами и как это отражается на их экономике.",
   alternates: { canonical: "/" },
 };
 
@@ -66,7 +66,7 @@ export default function HomePage() {
             </Reveal>
             <Reveal delay={0.08}>
               <h1 className="mt-7 max-w-xl text-[1.85rem] sm:text-4xl md:text-5xl lg:text-[3.1rem] font-extrabold leading-[1.15] sm:leading-[1.1] tracking-tight text-[var(--text-primary)]">
-                Единая платформа для управления проектами, ресурсами и{" "}
+                Единая система для управления проектами, ресурсами и{" "}
                 <span className="text-gradient-glow text-gradient" data-text="экономикой">
                   экономикой
                 </span>{" "}
