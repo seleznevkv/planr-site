@@ -6,7 +6,7 @@ import Button from "@/components/ui/Button";
 import Reveal from "@/components/ui/Reveal";
 import ScreenshotFrame from "@/components/graphics/ScreenshotFrame";
 import { featuresDetailed, featureGroups } from "@/lib/content";
-import { IconCheck, IconArrowRight } from "@/components/icons";
+import { IconCheck, IconArrowRight, IconServer, IconIntegrations, IconTelegram } from "@/components/icons";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -15,6 +15,24 @@ export const metadata: Metadata = {
     "Реальный интерфейс и сценарии РостПро для каждой роли в команде: задачи, тайм-трекинг, бюджет проекта, документооборот и ЭЦП, клиентский портал, премиальный фонд и отчёты.",
   alternates: { canonical: "/features" },
 };
+
+const integrations = [
+  {
+    icon: IconServer,
+    title: "Импорт из клиент-банков",
+    text: "Платежи и выписки загружаются из клиент-банков без ручного ввода — данные сразу попадают в финансовый учёт проекта.",
+  },
+  {
+    icon: IconIntegrations,
+    title: "1С",
+    text: "Загрузка данных из 1С в РостПро.",
+  },
+  {
+    icon: IconTelegram,
+    title: "Telegram-бот",
+    text: "Уведомления о задачах, сроках и согласованиях приходят в Telegram — без входа в веб-версию системы.",
+  },
+];
 
 export default function FeaturesPage() {
   let itemIndex = 0;
@@ -135,6 +153,29 @@ export default function FeaturesPage() {
           </Section>
         );
       })}
+
+      <Section>
+        <SectionHeading eyebrow="Интеграции" title="Как РостПро обменивается данными с другими системами" align="left" />
+        <div className="mt-10 grid sm:grid-cols-3 gap-6">
+          {integrations.map((s, i) => (
+            <Reveal key={s.title} delay={i * 0.08}>
+              <GlassCard variant="soft" hover={false} className="h-full">
+                <span className="w-11 h-11 rounded-xl icon-chip flex items-center justify-center text-[var(--color-brand-blue)]">
+                  <s.icon className="w-5 h-5" />
+                </span>
+                <h3 className="mt-4 text-base font-bold text-[var(--text-primary)]">{s.title}</h3>
+                <p className="mt-2 text-sm text-[var(--text-secondary)] leading-relaxed">{s.text}</p>
+              </GlassCard>
+            </Reveal>
+          ))}
+        </div>
+        <Reveal delay={0.15}>
+          <p className="mt-6 text-sm text-[var(--text-tertiary)] max-w-2xl">
+            Публичное API для собственных интеграций — в проработке. Если вам нужна конкретная интеграция уже
+            сейчас, обсудим возможность на демо.
+          </p>
+        </Reveal>
+      </Section>
 
       <Section>
         <Reveal>

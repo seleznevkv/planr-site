@@ -33,17 +33,10 @@ export type NavItem = {
 
 export const navItems: NavItem[] = [
   { label: "Главная", href: "/" },
+  { label: "Проверка", href: "/ai" },
   { label: "Возможности", href: "/features" },
   { label: "Тарифы", href: "/pricing" },
-  {
-    label: "Технологии",
-    href: "/technologies",
-    children: [
-      { label: "Технологии", href: "/technologies" },
-      { label: "Документация", href: "https://docs.rostpro.tech/", external: true },
-      { label: "История версий", href: "/changelog" },
-    ],
-  },
+  { label: "Безопасность", href: "/technologies" },
   { label: "О нас", href: "/about" },
   { label: "Контакты", href: "/contact" },
 ];

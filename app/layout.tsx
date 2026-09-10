@@ -56,7 +56,8 @@ const themeInitScript = `
 (function () {
   try {
     var stored = localStorage.getItem('planr-theme');
-    var theme = stored || 'dark';
+    var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+    var theme = stored || (prefersLight ? 'light' : 'dark');
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
