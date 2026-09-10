@@ -85,7 +85,10 @@ export default function HomePage() {
                 <Button href="#contact-form" size="lg" icon={<IconArrowRight className="w-4 h-4" />}>
                   Записаться на консультацию
                 </Button>
-                <Button href="https://docs.rostpro.tech/" external size="lg" variant="secondary">
+                <Button href="/ai" size="lg" variant="secondary">
+                  Проверка документации
+                </Button>
+                <Button href="https://docs.rostpro.tech/" external size="lg" variant="ghost">
                   Ознакомиться с документацией
                 </Button>
               </div>
