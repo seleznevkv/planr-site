@@ -7,7 +7,7 @@ export const runtime = "nodejs";
 
 // Fields carried as hidden inputs by ContactForm for routing purposes only —
 // they describe the email, they aren't part of the applicant's message.
-const META_FIELDS = new Set(["project_name", "admin_email", "form_subject", "consent"]);
+const META_FIELDS = new Set(["project_name", "admin_email", "form_subject", "consent", "skip_welcome"]);
 
 const HTML_ESCAPES: Record<string, string> = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
 const EMAIL_RE = /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]+$/;
@@ -65,7 +65,11 @@ export async function POST(req: NextRequest) {
   const applicantName = form.get("Имя");
   const applicantEmail = form.get("Почта");
   let welcomeTarget: { name: string; email: string } | null = null;
-  if (typeof applicantName === "string" && typeof applicantEmail === "string") {
+  if (
+    form.get("skip_welcome") == null &&
+    typeof applicantName === "string" &&
+    typeof applicantEmail === "string"
+  ) {
     const name = sanitizeHeaderValue(applicantName);
     const email = sanitizeHeaderValue(applicantEmail);
     if (name && EMAIL_RE.test(email)) welcomeTarget = { name, email };

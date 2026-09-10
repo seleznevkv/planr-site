@@ -6,6 +6,7 @@ import Button from "@/components/ui/Button";
 import Reveal from "@/components/ui/Reveal";
 import FaqAccordion from "@/components/ui/FaqAccordion";
 import ScreenshotFrame from "@/components/graphics/ScreenshotFrame";
+import ContactForm from "@/components/contact/ContactForm";
 import { IconArrowRight, IconCheck } from "@/components/icons";
 
 export const metadata: Metadata = {
@@ -169,12 +170,12 @@ export default function AiPage() {
                 любого момента готовности проекта.
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-4">
-                <Button href="/contact" size="lg" icon={<IconArrowRight className="w-4 h-4" />}>
+                <Button href="#zayavka" size="lg" icon={<IconArrowRight className="w-4 h-4" />}>
                   Оставить заявку
                 </Button>
               </div>
               <p className="mt-3 text-xs text-[var(--text-tertiary)]">
-                Сервис работает в тестовом режиме.
+                Сервис работает в тестовом режиме — пока проверка до 800 листов.
               </p>
 
               <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -318,20 +319,28 @@ export default function AiPage() {
         </Reveal>
       </Section>
 
-      {/* Final CTA */}
-      <Section>
-        <Reveal>
-          <GlassCard variant="strong" padding="lg" hover={false} className="text-center">
+      {/* Application form */}
+      <Section id="zayavka">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          <Reveal>
             <h2 className="text-3xl font-extrabold tracking-tight text-[var(--text-primary)]">
               Готовы проверить первый комплект документации?
             </h2>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-              <Button href="/contact" size="lg">
-                Оставить заявку
-              </Button>
-            </div>
-          </GlassCard>
-        </Reveal>
+            <p className="mt-4 text-[var(--text-secondary)] leading-relaxed">
+              Оставьте заявку — подключим к тестовому режиму сервиса проверки документации и
+              ответим на вопросы.
+            </p>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <ContactForm
+              heading="Заявка на проверку документации"
+              description="Подключим к тестовому режиму и ответим на вопросы."
+              subject="Заявка на проверку документации"
+              submitLabel="Оставить заявку"
+              sendWelcome={false}
+            />
+          </Reveal>
+        </div>
       </Section>
     </>
   );

@@ -10,7 +10,22 @@ import { siteConfig } from "@/lib/site";
 const inputClass =
   "w-full rounded-2xl glass-soft px-4 py-3.5 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] outline-none focus:ring-2 focus:ring-[var(--color-brand-blue)]/60 transition-all";
 
-export default function ContactForm() {
+type ContactFormProps = {
+  heading?: string;
+  description?: string;
+  subject?: string;
+  submitLabel?: string;
+  /** When false, the applicant does not receive the automatic welcome email. */
+  sendWelcome?: boolean;
+};
+
+export default function ContactForm({
+  heading = "Оставьте заявку",
+  description = "Ответим на все вопросы о РостПро и, если готовы, обсудим договор.",
+  subject = "Новая заявка с сайта РостПро",
+  submitLabel = "Записаться на консультацию",
+  sendWelcome = true,
+}: ContactFormProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -38,14 +53,13 @@ export default function ContactForm() {
 
   return (
     <GlassCard variant="strong" padding="lg" hover={false}>
-      <h3 className="text-xl font-bold text-[var(--text-primary)]">Оставьте заявку</h3>
-      <p className="mt-2 text-sm text-[var(--text-secondary)]">
-        Ответим на все вопросы о РостПро и, если готовы, обсудим договор.
-      </p>
+      <h3 className="text-xl font-bold text-[var(--text-primary)]">{heading}</h3>
+      <p className="mt-2 text-sm text-[var(--text-secondary)]">{description}</p>
       <form onSubmit={handleSubmit} className="mt-6 space-y-4">
         <input type="hidden" name="project_name" value={siteConfig.name} />
         <input type="hidden" name="admin_email" value={siteConfig.email} />
-        <input type="hidden" name="form_subject" value="Новая заявка с сайта РостПро" />
+        <input type="hidden" name="form_subject" value={subject} />
+        {!sendWelcome && <input type="hidden" name="skip_welcome" value="1" />}
 
         <input required name="Имя" type="text" placeholder="Введите имя" className={inputClass} />
         <input required name="Телефон" type="tel" placeholder="Введите телефон" className={inputClass} />
@@ -72,7 +86,7 @@ export default function ContactForm() {
           </p>
         )}
         <Button type="submit" className="w-full" size="lg" disabled={loading}>
-          {loading ? "Отправляем…" : "Записаться на консультацию"}
+          {loading ? "Отправляем…" : submitLabel}
         </Button>
       </form>
     </GlassCard>
