@@ -167,8 +167,8 @@ export default function AiPage() {
               </h1>
               <p className="mt-5 max-w-xl text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed">
                 Сервис проверяет проектную и рабочую документацию параллельно по всем
-                разделам: соответствие нормам, противоречия между разделами и градрегламенту — с
-                любого момента готовности проекта.
+                разделам: соответствие нормам, противоречия между разделами и внутри каждого
+                раздела — с любого момента готовности проекта.
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <Button href="#zayavka" size="lg" icon={<IconArrowRight className="w-4 h-4" />}>
@@ -332,9 +332,8 @@ export default function AiPage() {
               ответим на вопросы.
             </p>
             <div className="mt-6 rounded-2xl glass-soft px-4 py-3.5">
-              <p className="text-sm text-[var(--text-primary)] leading-relaxed">
-                Сейчас сервис работает в тестовом режиме:{" "}
-                <span className="font-semibold">проверка бесплатна</span>, до 800 листов за одну
+              <p className="text-sm font-semibold text-red-600 dark:text-red-400 leading-relaxed">
+                Сейчас сервис работает в тестовом режиме: проверка бесплатна, до 800 листов за одну
                 сессию. Обычная цена — 22 ₽ за лист.
               </p>
             </div>
