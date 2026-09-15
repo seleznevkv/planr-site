@@ -163,7 +163,10 @@ export default function AiPage() {
                 Тестовый режим
               </span>
               <h1 className="mt-6 max-w-2xl text-3xl sm:text-4xl md:text-5xl font-extrabold leading-[1.12] tracking-tight text-[var(--text-primary)]">
-                Сервис проверки документации
+                Сервис проверки проектной документации{" "}
+                <span className="inline-block align-middle rounded-full bg-[var(--color-brand-orange)] px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-white">
+                  бета
+                </span>
               </h1>
               <p className="mt-5 max-w-xl text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed">
                 Сервис проверяет проектную и рабочую документацию параллельно по всем
@@ -172,7 +175,7 @@ export default function AiPage() {
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <Button href="#zayavka" size="lg" icon={<IconArrowRight className="w-4 h-4" />}>
-                  Оставить заявку
+                  Заказать проверку документации
                 </Button>
               </div>
               <p className="mt-3 text-xs text-[var(--text-tertiary)]">

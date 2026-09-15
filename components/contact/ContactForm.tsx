@@ -29,16 +29,30 @@ export default function ContactForm({
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [phoneError, setPhoneError] = useState(false);
 
   // project_name / admin_email / form_subject are stripped out server-side
   // by app/api/contact/route.ts and everything else becomes a row in the
   // notification email.
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setLoading(true);
     setError(false);
 
     const form = e.currentTarget;
+    const phoneInput = form.elements.namedItem("Телефон") as HTMLInputElement;
+    const digits = phoneInput.value.replace(/\D/g, "");
+
+    // The country/trunk code takes up one digit either way (7 or 8), so a
+    // number written with it needs 11 digits total; written without any
+    // prefix (just the subscriber number) it needs exactly 10.
+    const phoneValid = digits.startsWith("7") || digits.startsWith("8") ? digits.length === 11 : digits.length === 10;
+    if (!phoneValid) {
+      setPhoneError(true);
+      phoneInput.focus();
+      return;
+    }
+    setPhoneError(false);
+    setLoading(true);
 
     try {
       const res = await fetch("/api/contact", { method: "POST", body: new FormData(form) });
@@ -62,7 +76,24 @@ export default function ContactForm({
         {!sendWelcome && <input type="hidden" name="skip_welcome" value="1" />}
 
         <input required name="Имя" type="text" placeholder="Введите имя" className={inputClass} />
-        <input required name="Телефон" type="tel" placeholder="Введите телефон" className={inputClass} />
+        <div>
+          <input
+            required
+            name="Телефон"
+            type="tel"
+            inputMode="tel"
+            placeholder="Введите телефон"
+            minLength={10}
+            maxLength={18}
+            onChange={() => phoneError && setPhoneError(false)}
+            className={inputClass}
+          />
+          {phoneError && (
+            <p className="mt-2 text-xs text-[var(--color-brand-orange)]">
+              Проверьте номер телефона: 11 цифр с 8 или +7, либо 10 цифр без кода страны.
+            </p>
+          )}
+        </div>
         <input required name="Почта" type="email" placeholder="Введите почту" className={inputClass} />
         <label className="flex items-start gap-3 cursor-pointer select-none">
           <input type="checkbox" required name="consent" className="peer sr-only" />

@@ -85,11 +85,21 @@ export default function HomePage() {
                 <Button href="#contact-form" size="lg" icon={<IconArrowRight className="w-4 h-4" />}>
                   Записаться на консультацию
                 </Button>
-                <Button href="/ai" size="lg" variant="secondary">
-                  Проверка документации
-                </Button>
-                <Button href="https://docs.rostpro.tech/" external size="lg" variant="ghost">
-                  Ознакомиться с документацией
+                <span className="relative inline-flex">
+                  <Button
+                    href="/ai"
+                    size="lg"
+                    variant="secondary"
+                    className="border-2! border-[var(--color-brand-blue)]! font-bold"
+                  >
+                    Проверка проектной документации
+                  </Button>
+                  <span className="absolute -top-2 -right-2 rounded-full bg-[var(--color-brand-orange)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
+                    бета
+                  </span>
+                </span>
+                <Button href="https://docs.rostpro.tech/" external size="lg" variant="secondary">
+                  Ознакомиться с документацией РостПро
                 </Button>
               </div>
               <p className="mt-4 text-sm text-[var(--text-tertiary)] max-w-md">
