@@ -348,6 +348,10 @@ export default function AiPage() {
               subject="Заявка на проверку документации"
               submitLabel="Оставить заявку"
               sendWelcome={false}
+              extraField={{
+                name: "Ссылка на проектную документацию",
+                placeholder: "Ссылка на Яндекс.Диск, Google Диск или другое облако",
+              }}
             />
           </Reveal>
         </div>
