@@ -34,6 +34,7 @@ export type NavItem = {
 export const navItems: NavItem[] = [
   { label: "Главная", href: "/" },
   { label: "Проверка", href: "/ai" },
+  { label: "Анализ", href: "/grad-analiz" },
   { label: "Возможности", href: "/features" },
   { label: "Тарифы", href: "/pricing" },
   { label: "Безопасность", href: "/technologies" },

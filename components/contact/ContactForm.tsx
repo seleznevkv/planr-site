@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import GlassCard from "@/components/ui/GlassCard";
 import Button from "@/components/ui/Button";
@@ -17,6 +17,16 @@ type ContactFormProps = {
   submitLabel?: string;
   /** When false, the applicant does not receive the automatic welcome email. */
   sendWelcome?: boolean;
+  /** Optional extra free-text field (e.g. a cadastral number) — becomes its own row in the notification email. */
+  extraField?: { name: string; placeholder: string };
+  /**
+   * Optional "attach documents" control, shown as plain text that opens the
+   * native file picker on click. The files themselves aren't uploaded
+   * anywhere (the site's email backend can't carry attachments) — only the
+   * chosen file names are sent, as a plain text row, so the team knows to
+   * ask the applicant for the actual documents.
+   */
+  fileField?: { name: string; label: string };
 };
 
 export default function ContactForm({
@@ -25,11 +35,15 @@ export default function ContactForm({
   subject = "Новая заявка с сайта РостПро",
   submitLabel = "Записаться на консультацию",
   sendWelcome = true,
+  extraField,
+  fileField,
 }: ContactFormProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [phoneError, setPhoneError] = useState(false);
+  const [fileNames, setFileNames] = useState<string[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // project_name / admin_email / form_subject are stripped out server-side
   // by app/api/contact/route.ts and everything else becomes a row in the
@@ -95,6 +109,28 @@ export default function ContactForm({
           )}
         </div>
         <input required name="Почта" type="email" placeholder="Введите почту" className={inputClass} />
+        {extraField && (
+          <input name={extraField.name} type="text" placeholder={extraField.placeholder} className={inputClass} />
+        )}
+        {fileField && (
+          <div>
+            <input
+              ref={fileInputRef}
+              type="file"
+              multiple
+              className="hidden"
+              onChange={(e) => setFileNames(Array.from(e.target.files ?? []).map((f) => f.name))}
+            />
+            <input type="hidden" name={fileField.name} value={fileNames.join(", ")} />
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              className="w-full rounded-2xl glass-soft px-4 py-3.5 text-left text-sm text-[var(--color-brand-blue)] underline decoration-dotted underline-offset-4 transition-colors hover:text-[var(--color-brand-blue)]/80"
+            >
+              {fileNames.length ? `Прикреплено: ${fileNames.join(", ")}` : fileField.label}
+            </button>
+          </div>
+        )}
         <label className="flex items-start gap-3 cursor-pointer select-none">
           <input type="checkbox" required name="consent" className="peer sr-only" />
           <span className="mt-0.5 w-5 h-5 shrink-0 rounded-md icon-chip flex items-center justify-center text-transparent transition-colors peer-checked:bg-[var(--color-brand-blue)] peer-checked:border-[var(--color-brand-blue)] peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--color-brand-blue)]/60">
