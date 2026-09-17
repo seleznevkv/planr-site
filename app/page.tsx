@@ -5,6 +5,7 @@ import GlassCard from "@/components/ui/GlassCard";
 import Button from "@/components/ui/Button";
 import Reveal from "@/components/ui/Reveal";
 import ScreenshotFrame from "@/components/graphics/ScreenshotFrame";
+import AiPulseIcon from "@/components/graphics/AiPulseIcon";
 import ContactForm from "@/components/contact/ContactForm";
 import RoiCalculator from "@/components/pricing/RoiCalculator";
 import PricingPlans from "@/components/pricing/PricingPlans";
@@ -117,6 +118,7 @@ export default function HomePage() {
                 variant="secondary"
                 className="border-2! border-[var(--color-brand-blue)]! font-bold"
               >
+                <AiPulseIcon className="w-6 h-6 shrink-0" />
                 Проверка проектной документации
               </Button>
               <span className="absolute -top-2 -right-2 rounded-full bg-[var(--color-brand-orange)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
@@ -130,6 +132,7 @@ export default function HomePage() {
                 variant="secondary"
                 className="border-2! border-[var(--color-brand-blue)]! font-bold"
               >
+                <AiPulseIcon className="w-6 h-6 shrink-0" />
                 Граданализ
               </Button>
               <span className="absolute -top-2 -right-2 rounded-full bg-red-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
