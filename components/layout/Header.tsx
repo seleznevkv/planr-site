@@ -238,7 +238,7 @@ export default function Header({ changelogEntries }: { changelogEntries: Changel
           <button
             aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
             onClick={() => setMenuOpen((v) => !v)}
-            className="w-11 h-11 rounded-full glass flex items-center justify-center text-[var(--text-primary)]"
+            className="w-14 h-11 rounded-full glass flex items-center justify-center text-[var(--text-primary)]"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
               {menuOpen ? (
