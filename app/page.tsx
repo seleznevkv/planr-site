@@ -5,7 +5,7 @@ import GlassCard from "@/components/ui/GlassCard";
 import Button from "@/components/ui/Button";
 import Reveal from "@/components/ui/Reveal";
 import ScreenshotFrame from "@/components/graphics/ScreenshotFrame";
-import AiPulseIcon from "@/components/graphics/AiPulseIcon";
+import AiInsightIcon from "@/components/graphics/AiInsightIcon";
 import ContactForm from "@/components/contact/ContactForm";
 import RoiCalculator from "@/components/pricing/RoiCalculator";
 import PricingPlans from "@/components/pricing/PricingPlans";
@@ -104,41 +104,45 @@ export default function HomePage() {
         </div>
 
         <Reveal delay={0.24}>
-          <div className="mt-10 flex flex-col items-start gap-3">
-            <Button href="#contact-form" size="md" icon={<IconArrowRight className="w-4 h-4" />}>
-              Записаться на консультацию
-            </Button>
-            <Button href="https://docs.rostpro.tech/" external size="md" variant="secondary">
-              Ознакомиться с документацией РостПро
-            </Button>
-            <span className="relative inline-flex">
-              <Button
-                href="/ai"
-                size="md"
-                variant="secondary"
-                className="border-2! border-[var(--color-brand-blue)]! font-bold"
-              >
-                <AiPulseIcon className="w-9 h-9 -my-1.5 shrink-0" />
-                Проверка проектной документации
+          <div className="mt-10 flex flex-col gap-5">
+            <div className="flex flex-wrap items-center gap-3">
+              <Button href="#contact-form" size="md" icon={<IconArrowRight className="w-4 h-4" />}>
+                Записаться на консультацию
               </Button>
-              <span className="absolute -top-2 -right-2 rounded-full bg-[var(--color-brand-orange)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
-                бета
-              </span>
-            </span>
-            <span className="relative inline-flex">
-              <Button
-                href="/grad-analiz"
-                size="md"
-                variant="secondary"
-                className="border-2! border-[var(--color-brand-blue)]! font-bold"
-              >
-                <AiPulseIcon className="w-9 h-9 -my-1.5 shrink-0" />
-                Граданализ
+              <Button href="https://docs.rostpro.tech/" external size="md" variant="secondary">
+                Ознакомиться с документацией РостПро
               </Button>
-              <span className="absolute -top-2 -right-2 rounded-full bg-red-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
-                новое
+            </div>
+            <div className="flex flex-col items-start gap-3">
+              <span className="relative inline-flex">
+                <Button
+                  href="/ai"
+                  size="md"
+                  variant="secondary"
+                  className="border-2! border-[var(--color-brand-blue)]! font-bold"
+                >
+                  <AiInsightIcon className="w-9 h-9 -my-1.5 shrink-0" />
+                  Проверка проектной документации
+                </Button>
+                <span className="absolute -top-2 -right-2 rounded-full bg-[var(--color-brand-orange)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
+                  бета
+                </span>
               </span>
-            </span>
+              <span className="relative inline-flex">
+                <Button
+                  href="/grad-analiz"
+                  size="md"
+                  variant="secondary"
+                  className="border-2! border-[var(--color-brand-blue)]! font-bold"
+                >
+                  <AiInsightIcon className="w-9 h-9 -my-1.5 shrink-0" />
+                  Граданализ
+                </Button>
+                <span className="absolute -top-2 -right-2 rounded-full bg-red-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
+                  новое
+                </span>
+              </span>
+            </div>
           </div>
           <p className="mt-4 text-sm text-[var(--text-tertiary)] max-w-md">
             Для архитектурных бюро, проектных институтов, инжиниринговых компаний и дизайн-студий
