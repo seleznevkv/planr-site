@@ -124,8 +124,13 @@ export default function HomePage() {
               </span>
             </span>
             <span className="relative inline-flex">
-              <Button href="/grad-analiz" size="md" variant="secondary" className="font-bold">
-                Анализ участка
+              <Button
+                href="/grad-analiz"
+                size="md"
+                variant="secondary"
+                className="border-2! border-[var(--color-brand-blue)]! font-bold"
+              >
+                Граданализ
               </Button>
               <span className="absolute -top-2 -right-2 rounded-full bg-red-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
                 новое
