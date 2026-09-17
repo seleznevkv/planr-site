@@ -104,7 +104,7 @@ export default function HomePage() {
         </div>
 
         <Reveal delay={0.24}>
-          <div className="mt-10 flex flex-col gap-5">
+          <div className="mt-10 flex flex-col gap-8">
             <div className="flex flex-wrap items-center gap-3">
               <Button href="#contact-form" size="md" icon={<IconArrowRight className="w-4 h-4" />}>
                 Записаться на консультацию
