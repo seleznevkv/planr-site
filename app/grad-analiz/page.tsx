@@ -6,6 +6,7 @@ import Button from "@/components/ui/Button";
 import Reveal from "@/components/ui/Reveal";
 import FaqAccordion from "@/components/ui/FaqAccordion";
 import PlotDiagram from "@/components/graphics/PlotDiagram";
+import AiMark from "@/components/graphics/AiMark";
 import ContactForm from "@/components/contact/ContactForm";
 import { IconArrowRight, IconCheck } from "@/components/icons";
 import { siteConfig } from "@/lib/site";
@@ -201,6 +202,7 @@ export default function GradAnalizPage() {
             <div className="relative grid lg:grid-cols-[1.15fr_0.85fr] gap-12 items-center">
               <div>
                 <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs font-semibold text-[var(--color-brand-blue)] uppercase tracking-wide">
+                  <AiMark className="w-4 h-4" animated={false} />
                   ГрадАнализ
                 </span>
                 <h1 className="mt-6 max-w-2xl text-3xl sm:text-4xl md:text-5xl font-extrabold leading-[1.12] tracking-tight text-[var(--text-primary)]">
