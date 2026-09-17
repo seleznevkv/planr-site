@@ -80,40 +80,6 @@ export default function HomePage() {
                 отражается на их экономике.
               </p>
             </Reveal>
-            <Reveal delay={0.24}>
-              <div className="mt-9 flex flex-wrap items-center gap-4">
-                <Button href="#contact-form" size="lg" icon={<IconArrowRight className="w-4 h-4" />}>
-                  Записаться на консультацию
-                </Button>
-                <Button href="https://docs.rostpro.tech/" external size="lg" variant="secondary">
-                  Ознакомиться с документацией РостПро
-                </Button>
-                <span className="relative inline-flex">
-                  <Button
-                    href="/ai"
-                    size="lg"
-                    variant="secondary"
-                    className="border-2! border-[var(--color-brand-blue)]! font-bold"
-                  >
-                    Проверка проектной документации
-                  </Button>
-                  <span className="absolute -top-2 -right-2 rounded-full bg-[var(--color-brand-orange)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
-                    бета
-                  </span>
-                </span>
-                <span className="relative inline-flex">
-                  <Button href="/grad-analiz" size="lg" variant="secondary" className="font-bold">
-                    Анализ участка
-                  </Button>
-                  <span className="absolute -top-2 -right-2 rounded-full bg-red-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
-                    новое
-                  </span>
-                </span>
-              </div>
-              <p className="mt-4 text-sm text-[var(--text-tertiary)] max-w-md">
-                Для архитектурных бюро, проектных институтов, инжиниринговых компаний и дизайн-студий
-              </p>
-            </Reveal>
           </div>
 
           <Reveal delay={0.2} y={24} className="min-w-0 lg:-mt-6">
@@ -135,12 +101,47 @@ export default function HomePage() {
             </div>
           </Reveal>
         </div>
+
+        <Reveal delay={0.24}>
+          <div className="mt-10 flex flex-wrap items-center gap-3">
+            <Button href="#contact-form" size="md" icon={<IconArrowRight className="w-4 h-4" />}>
+              Записаться на консультацию
+            </Button>
+            <Button href="https://docs.rostpro.tech/" external size="md" variant="secondary">
+              Ознакомиться с документацией РостПро
+            </Button>
+            <span className="relative inline-flex">
+              <Button
+                href="/ai"
+                size="md"
+                variant="secondary"
+                className="border-2! border-[var(--color-brand-blue)]! font-bold"
+              >
+                Проверка проектной документации
+              </Button>
+              <span className="absolute -top-2 -right-2 rounded-full bg-[var(--color-brand-orange)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
+                бета
+              </span>
+            </span>
+            <span className="relative inline-flex">
+              <Button href="/grad-analiz" size="md" variant="secondary" className="font-bold">
+                Анализ участка
+              </Button>
+              <span className="absolute -top-2 -right-2 rounded-full bg-red-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
+                новое
+              </span>
+            </span>
+          </div>
+          <p className="mt-4 text-sm text-[var(--text-tertiary)] max-w-md">
+            Для архитектурных бюро, проектных институтов, инжиниринговых компаний и дизайн-студий
+          </p>
+        </Reveal>
       </Section>
 
       {/* Problem */}
       <Section>
         <SectionHeading
-          title="Загрузка 100%, а прибыли не видно"
+          title="Загрузка 100%, а прибыли не видно?"
           description="Проектная компания может быть загружена под завязку — и при этом терять деньги. Проблема часто не на поверхности: задачи ведутся отдельно, часы — в таблицах, документы — в почте, финансовые данные — в другой системе. В результате руководитель видит отдельные показатели, но не всегда видит общую картину проекта."
         />
         <div className="mt-14 grid sm:grid-cols-3 gap-6">
