@@ -85,6 +85,9 @@ export default function HomePage() {
                 <Button href="#contact-form" size="lg" icon={<IconArrowRight className="w-4 h-4" />}>
                   Записаться на консультацию
                 </Button>
+                <Button href="https://docs.rostpro.tech/" external size="lg" variant="secondary">
+                  Ознакомиться с документацией РостПро
+                </Button>
                 <span className="relative inline-flex">
                   <Button
                     href="/ai"
@@ -98,9 +101,14 @@ export default function HomePage() {
                     бета
                   </span>
                 </span>
-                <Button href="https://docs.rostpro.tech/" external size="lg" variant="secondary">
-                  Ознакомиться с документацией РостПро
-                </Button>
+                <span className="relative inline-flex">
+                  <Button href="/grad-analiz" size="lg" variant="secondary" className="font-bold">
+                    Анализ участка
+                  </Button>
+                  <span className="absolute -top-2 -right-2 rounded-full bg-red-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
+                    новое
+                  </span>
+                </span>
               </div>
               <p className="mt-4 text-sm text-[var(--text-tertiary)] max-w-md">
                 Для архитектурных бюро, проектных институтов, инжиниринговых компаний и дизайн-студий

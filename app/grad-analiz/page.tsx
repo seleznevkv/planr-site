@@ -204,7 +204,10 @@ export default function GradAnalizPage() {
                   ГрадАнализ
                 </span>
                 <h1 className="mt-6 max-w-2xl text-3xl sm:text-4xl md:text-5xl font-extrabold leading-[1.12] tracking-tight text-[var(--text-primary)]">
-                  Что можно построить на участке
+                  Что можно построить на участке{" "}
+                  <span className="inline-block align-middle rounded-full bg-red-600 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-white">
+                    новое
+                  </span>
                 </h1>
                 <p className="mt-5 max-w-xl text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed">
                   Сервис собирает сведения из государственных источников по кадастровому
