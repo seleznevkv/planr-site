@@ -265,9 +265,9 @@ export default function GradAnalizPage() {
             <p className="mt-4 text-[var(--text-secondary)] leading-relaxed">
               Оставьте заявку — покажем пример отчёта и ответим на вопросы про ГрадАнализ.
             </p>
-            <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-[var(--color-brand-blue)]/10 px-4 py-2 text-sm font-bold text-[var(--color-brand-blue)]">
-              <IconCheck className="w-4 h-4 shrink-0" />
-              Бесплатно — результат пришлём на почту в течение 12 часов
+            <div className="mt-4 inline-flex items-center gap-2.5 rounded-full bg-[var(--color-brand-orange)] px-5 py-2.5 text-base font-extrabold text-white shadow-lg shadow-[var(--color-brand-orange)]/30">
+              <IconCheck className="w-5 h-5 shrink-0" strokeWidth={3} />
+              Бесплатно! Результат пришлём на почту в течение 12 часов
             </div>
             <div className="mt-6 rounded-2xl glass-soft px-4 py-3.5">
               <p className="text-sm text-[var(--text-primary)] leading-relaxed">
