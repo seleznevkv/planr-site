@@ -17,6 +17,8 @@ type ContactFormProps = {
   submitLabel?: string;
   /** When false, the applicant does not receive the automatic welcome email. */
   sendWelcome?: boolean;
+  /** Which applicant-facing email to send when sendWelcome is true. Defaults to the generic demo-access welcome. */
+  welcomeTemplate?: "default" | "grad-analiz";
   /** Optional extra free-text field (e.g. a cadastral number) — becomes its own row in the notification email. */
   extraField?: { name: string; placeholder: string };
   /**
@@ -35,6 +37,7 @@ export default function ContactForm({
   subject = "Новая заявка с сайта РостПро",
   submitLabel = "Записаться на консультацию",
   sendWelcome = true,
+  welcomeTemplate = "default",
   extraField,
   fileField,
 }: ContactFormProps) {
@@ -88,6 +91,9 @@ export default function ContactForm({
         <input type="hidden" name="admin_email" value={siteConfig.email} />
         <input type="hidden" name="form_subject" value={subject} />
         {!sendWelcome && <input type="hidden" name="skip_welcome" value="1" />}
+        {sendWelcome && welcomeTemplate !== "default" && (
+          <input type="hidden" name="welcome_template" value={welcomeTemplate} />
+        )}
 
         <input required name="Имя" type="text" placeholder="Введите имя" className={inputClass} />
         <div>

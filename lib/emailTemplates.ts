@@ -38,3 +38,35 @@ export function welcomeEmail(name: string) {
 
   return { subject: "Ответ на заявку на демонстрацию в РостПро", html };
 }
+
+/** Sent to the applicant right after they submit the site analysis (Граданализ) request form. */
+export function gradAnalizFollowUpEmail(name: string) {
+  const safeName = escapeHtml(name);
+
+  const html = `
+<div style="font-family: -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 560px; margin: 0 auto; color: #1a1a1a;">
+  <p style="font-size: 16px; line-height: 1.6;">${safeName}, добрый день!</p>
+
+  <p style="font-size: 15px; line-height: 1.6;">
+    Приняли вашу заявку на градостроительный анализ участка. Уже собираем данные по кадастровому номеру — отчёт придёт на эту почту в течение 12 часов.
+  </p>
+
+  <p style="font-size: 16px; font-weight: 700; margin-top: 24px;">💡 Пока готовится отчёт</p>
+  <p style="font-size: 15px; line-height: 1.6; margin: 0;">
+    Если вы управляете проектной организацией — взгляните на РостПро: систему, которая связывает задачи, трудозатраты, ресурсы и финансы проекта в одном месте. 60 дней на тест — с гарантией возврата денег, если платформа не подойдёт.
+  </p>
+
+  <p style="font-size: 15px; line-height: 1.6; margin-top: 16px;">
+    <a href="https://demo.rostpro.tech/" style="color: #3A9CD7;">Демо-версия</a>
+    &nbsp;·&nbsp;
+    <a href="https://docs.rostpro.tech/" style="color: #3A9CD7;">Документация</a>
+  </p>
+
+  <p style="font-size: 15px; line-height: 1.6; margin-top: 24px;">
+    Если появятся вопросы по заявке до этого срока — просто ответьте на это письмо.
+  </p>
+</div>
+`;
+
+  return { subject: "Заявка на градостроительный анализ участка — ответ в течение 12 часов", html };
+}

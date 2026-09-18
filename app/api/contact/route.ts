@@ -1,13 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
 import { withSmtpConnection } from "@/lib/smtp";
 import { siteConfig } from "@/lib/site";
-import { welcomeEmail } from "@/lib/emailTemplates";
+import { welcomeEmail, gradAnalizFollowUpEmail } from "@/lib/emailTemplates";
 
 export const runtime = "nodejs";
 
 // Fields carried as hidden inputs by ContactForm for routing purposes only —
 // they describe the email, they aren't part of the applicant's message.
-const META_FIELDS = new Set(["project_name", "admin_email", "form_subject", "consent", "skip_welcome"]);
+const META_FIELDS = new Set([
+  "project_name",
+  "admin_email",
+  "form_subject",
+  "consent",
+  "skip_welcome",
+  "welcome_template",
+]);
+
+const WELCOME_TEMPLATES: Record<string, (name: string) => { subject: string; html: string }> = {
+  "grad-analiz": gradAnalizFollowUpEmail,
+};
 
 const HTML_ESCAPES: Record<string, string> = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
 const EMAIL_RE = /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]+$/;
@@ -86,7 +97,10 @@ export async function POST(req: NextRequest) {
         // second fresh login isn't needed (some providers throttle/drop those).
         if (welcomeTarget) {
           try {
-            const { subject, html: welcomeHtml } = welcomeEmail(welcomeTarget.name);
+            const templateKey = form.get("welcome_template");
+            const buildEmail =
+              (typeof templateKey === "string" && WELCOME_TEMPLATES[templateKey]) || welcomeEmail;
+            const { subject, html: welcomeHtml } = buildEmail(welcomeTarget.name);
             await send({ to: welcomeTarget.email, subject, html: welcomeHtml });
           } catch (err) {
             console.error("[/api/contact] failed to send welcome email to applicant:", err);

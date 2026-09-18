@@ -291,7 +291,8 @@ export default function GradAnalizPage() {
               description="Укажите кадастровый номер или приложите документы."
               subject="Заявка на анализ участка (Граданализ)"
               submitLabel="Оставить заявку"
-              sendWelcome={false}
+              sendWelcome={true}
+              welcomeTemplate="grad-analiz"
               extraField={{
                 name: "Кадастровый номер",
                 placeholder: "Введите кадастровый номер участка",
