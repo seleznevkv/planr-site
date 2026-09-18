@@ -265,9 +265,10 @@ export default function GradAnalizPage() {
             <p className="mt-4 text-[var(--text-secondary)] leading-relaxed">
               Оставьте заявку — покажем пример отчёта и ответим на вопросы про ГрадАнализ.
             </p>
-            <p className="mt-2 text-sm font-semibold text-[var(--text-primary)]">
-              Бесплатно — результат пришлём на почту в течение 12 часов.
-            </p>
+            <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-[var(--color-brand-blue)]/10 px-4 py-2 text-sm font-bold text-[var(--color-brand-blue)]">
+              <IconCheck className="w-4 h-4 shrink-0" />
+              Бесплатно — результат пришлём на почту в течение 12 часов
+            </div>
             <div className="mt-6 rounded-2xl glass-soft px-4 py-3.5">
               <p className="text-sm text-[var(--text-primary)] leading-relaxed">
                 Для расчёта укажите кадастровый номер участка или приложите документы.
