@@ -12,9 +12,9 @@ import { IconArrowRight, IconCheck } from "@/components/icons";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "ГрадАнализ — предпроектная оценка участка по кадастровому номеру",
+  title: "Граданализ — предпроектная оценка участка по кадастровому номеру",
   description:
-    "ГрадАнализ — предпроектная оценка участка по кадастровому номеру: сервис собирает данные из ЕГРН, ПЗЗ, генплана и зон с особыми условиями, считает максимальные законные параметры застройки и выдаёт отчёт PDF — с источником у каждой цифры.",
+    "Граданализ — предпроектная оценка участка по кадастровому номеру: сервис собирает данные из ЕГРН, ПЗЗ, генплана и зон с особыми условиями, считает максимальные законные параметры застройки и выдаёт отчёт PDF — с источником у каждой цифры.",
   alternates: { canonical: "/grad-analiz" },
 };
 
@@ -173,7 +173,7 @@ const faqJsonLd = {
 const serviceJsonLd = {
   "@context": "https://schema.org",
   "@type": "Service",
-  name: "ГрадАнализ",
+  name: "Граданализ",
   serviceType: "Предпроектная оценка земельного участка",
   description:
     "Предпроектная оценка участка по кадастровому номеру: максимальные законные параметры застройки, ограничения и риски, отчёт PDF с источником у каждой цифры.",
@@ -203,7 +203,7 @@ export default function GradAnalizPage() {
               <div>
                 <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs font-semibold text-[var(--color-brand-blue)] uppercase tracking-wide">
                   <AiMark className="w-4 h-4" animated={false} />
-                  ГрадАнализ
+                  Граданализ
                 </span>
                 <h1 className="mt-6 max-w-2xl text-3xl sm:text-4xl md:text-5xl font-extrabold leading-[1.12] tracking-tight text-[var(--text-primary)]">
                   Что можно построить на участке{" "}
@@ -263,7 +263,7 @@ export default function GradAnalizPage() {
               Хотите узнать, что можно построить на вашем участке?
             </h2>
             <p className="mt-4 text-[var(--text-secondary)] leading-relaxed">
-              Оставьте заявку — покажем пример отчёта и ответим на вопросы про ГрадАнализ.
+              Оставьте заявку — покажем пример отчёта и ответим на вопросы про Граданализ.
             </p>
             <div className="mt-4 inline-flex items-center gap-2.5 rounded-full bg-[var(--color-brand-orange)] px-5 py-2.5 text-base font-extrabold text-white shadow-lg shadow-[var(--color-brand-orange)]/30">
               <IconCheck className="w-5 h-5 shrink-0" strokeWidth={3} />
@@ -289,7 +289,7 @@ export default function GradAnalizPage() {
             <ContactForm
               heading="Заявка на анализ участка"
               description="Укажите кадастровый номер или приложите документы."
-              subject="Заявка на анализ участка (ГрадАнализ)"
+              subject="Заявка на анализ участка (Граданализ)"
               submitLabel="Оставить заявку"
               sendWelcome={false}
               extraField={{
@@ -327,7 +327,7 @@ export default function GradAnalizPage() {
 
       {/* Personas */}
       <Section size="sm">
-        <SectionHeading eyebrow="Для кого" title="Кому подойдёт ГрадАнализ" align="left" />
+        <SectionHeading eyebrow="Для кого" title="Кому подойдёт Граданализ" align="left" />
         <div className="mt-10 grid sm:grid-cols-3 gap-6">
           {personas.map((p, i) => (
             <Reveal key={p.kicker} delay={i * 0.07}>
